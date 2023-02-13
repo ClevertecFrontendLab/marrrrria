@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Card } from '../../components/card';
 import {Filter} from '../../components/filter';
 import { Layout } from '../../components/layout';
+import { Loader } from '../../components/loader';
 import {Search} from '../../components/search';
 import {View} from '../../components/view';
 // import { booksData as booksDataa } from '../../data/books';
@@ -47,7 +48,7 @@ export function MainPage() {
 
 		</div>
 		<div className={`main-page__cards-wrapper main-page__cards-wrapper_${view}`}>
-			{isLoading && <p>Loading...</p>}
+			{isLoading && <Loader/>}
 			{!isLoading && cardsJSX}
 		</div>
 	</div>

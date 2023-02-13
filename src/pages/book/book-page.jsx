@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { Footer } from '../../components/footer';
 import { Header } from '../../components/header';
+import { Loader } from '../../components/loader';
 import { Rating } from '../../components/rating';
 import { Slider } from '../../components/slider';
 import { feedbackData,firstTableContent, secondTableContent } from '../../data/feedback';
@@ -230,7 +231,7 @@ const bookPageContent = <React.Fragment>
   return (
   <section className='book-page'> 
     <Header toggleNavigation={toggleNavigation} isOpenNavigation={isOpenNavigation}/>
-			{isLoading && <p style={{position: 'absolute', backgroundColor: '#ff99ff99', top: '0', left: '0', right: '0', bottom: '0', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>Loading...</p>}
+			{isLoading && <Loader/>}
 			{!isLoading && bookPageContent}
 		<Footer />
 	</section>

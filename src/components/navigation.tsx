@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 
 import { navigationItems } from '../data/navigation'
+import { useGetCategoriesQuery } from '../store/library/library.api'
 
 interface NavigationProps {
   isOpen: boolean,
@@ -17,16 +18,38 @@ interface NavigationProps {
 
 export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationProps) {
 
+  const {isLoading, isError, data} = useGetCategoriesQuery()
+  console.log(data)
+
+  const navigationItems = [
+    {
+      id: 0,
+      name: 'Все книги',
+      path: 'all',
+    },
+    ...data || [],
+  ]
+
+  console.log(navigationItems)
+
   const {category} = useParams()
   const [activeItem, setActiveItem] = useState(!!category)
 
-const items = navigationItems[0].subItems.map(item => <li data-test-id={item.name === 'Все книги' ? dataTestIds.idAllBooks : ''} role="presentation" onClick={closeNavigation} key={`navigation-item-${item.name}`} className='subnavigation__item'><NavLink to={`/books/${item.route}`}>
+  const items = navigationItems.map(item => <li data-test-id={item.name === 'Все книги' ? dataTestIds.idAllBooks : ''} role="presentation" onClick={closeNavigation} key={`navigation-item-${item.id}`} className='subnavigation__item'><NavLink to={`/books/${item.path}`}>
 {({ isActive }) => (
     <React.Fragment><span data-test-id='navigation-books' className={` ${isActive ? 'subnavigation__item_active' : undefined}`}>
                 {item.name}
-              </span><span className='navigation__item-count'>&nbsp;{item.count}&shy;</span></React.Fragment>
+              </span><span className='navigation__item-count'>&nbsp; {/** ADD NUMBER */} &shy;</span></React.Fragment>
             )}
             </NavLink></li>)
+
+// const items = navigationItems[0].subItems.map(item => <li data-test-id={item.name === 'Все книги' ? dataTestIds.idAllBooks : ''} role="presentation" onClick={closeNavigation} key={`navigation-item-${item.name}`} className='subnavigation__item'><NavLink to={`/books/${item.route}`}>
+// {({ isActive }) => (
+//     <React.Fragment><span data-test-id='navigation-books' className={` ${isActive ? 'subnavigation__item_active' : undefined}`}>
+//                 {item.name}
+//               </span><span className='navigation__item-count'>&nbsp;{item.count}&shy;</span></React.Fragment>
+//             )}
+//             </NavLink></li>)
 
   return (
     <React.Fragment>
@@ -36,8 +59,8 @@ const items = navigationItems[0].subItems.map(item => <li data-test-id={item.nam
       <ul className='navigation__wrapper'>
       <li className='navigation__item'>
           <NavLink data-test-id={dataTestIds.idWindowBooks} onClick={() => setActiveItem(prev => !prev)} to={`/books/${category || 'all'}`} className={({ isActive }) => isActive ? 'navigation__item_active' : 'navigation__item_passive'}>
-              Витрина Книг<span className={`ico ico_arrow-navigation ${activeItem ? 'navigation__arrow_opened' : 'navigation__arrow_closed'}`}> </span>
-            </NavLink>
+            Витрина Книг<span className={`ico ico_arrow-navigation ${activeItem ? 'navigation__arrow_opened' : 'navigation__arrow_closed'}`}> </span>
+          </NavLink>
           </li>
           <ul className={activeItem ? 'navigation__sub subnavigation subnavigation_active' : 'navigation__sub subnavigation'}>
               {items}
