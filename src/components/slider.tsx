@@ -11,20 +11,22 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/pagination';
 import 'swiper/css/free-mode';
 import 'swiper/css/thumbs';
+import { Image } from '../models/models';
 
 
 interface SliderProps { 
-  data: string[],
+  // data: string[],
+  data: Image[],
 
 }
 
 
-function getSlides(data:string[], styleName:string, dataTestId:string){
+function getSlides(data:Image[], styleName:string, dataTestId:string){
   return data.map((item, i) => {
-    const stylePicture = {backgroundImage: `url('${item}')`, backgroundSize: 'cover'};
+    const stylePicture = {backgroundImage: `url('https://strapi.cleverland.by${item.url}')`, backgroundSize: 'cover'};
 
     return (
-    <SwiperSlide key={item.slice(i,i+item.length-i)} data-test-id={dataTestId} > 
+    <SwiperSlide key={item.url} data-test-id={dataTestId} > 
       <div role="presentation" style={stylePicture} className={styleName}> </div> 
     </SwiperSlide>
   )
@@ -52,11 +54,11 @@ export const Slider = ({data}: SliderProps) => {
         thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
         className="slide__wrapper"
       >
-        {data.length ? getSlides(data, 'book__cover', '') : bookPlaceholderJSX}
+        {data?.length ? getSlides(data, 'book__cover', '') : bookPlaceholderJSX}
       </Swiper>
       
       
-      {data.length > 1 ?
+      {data?.length > 1 ?
         <Swiper
           modules={[FreeMode, Thumbs, Scrollbar]}
           onSwiper={setThumbsSwiper}

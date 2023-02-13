@@ -341,9 +341,15 @@
   @include font($size: 1.6rem, $height: 2.4rem);
   color: $color-text;
   margin-top: 32px;
+  white-space: pre-wrap;
 
   @include media-mobile {
     @include font($size: 1.2rem, $height: 1.8rem);
     margin-top: 16px;
   }
+}
+
+.book_no-estimates {
+  color: #363636;
+  @include font($size: 1.4rem, $height: 1.8rem)
 }

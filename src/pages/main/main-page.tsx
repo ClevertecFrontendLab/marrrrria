@@ -11,11 +11,12 @@ import { useGetBookQuery, useGetBooksQuery } from '../../store/library/library.a
 
 export function MainPage() {
 
-	const {isLoading, isError, data: booksData} = useGetBooksQuery() 
+	const {isLoading, error, isError, data: booksData} = useGetBooksQuery()
+	
 	// const {isLoading, isError, data} = useGetBookQuery(2) 
 
     // console.log(isError)
-    console.log(booksData)
+    // console.log(isLoading, error, isError, booksData)
 
 
 	const {category} = useParams()
@@ -46,7 +47,8 @@ export function MainPage() {
 
 		</div>
 		<div className={`main-page__cards-wrapper main-page__cards-wrapper_${view}`}>
-			{cardsJSX}
+			{isLoading && <p>Loading...</p>}
+			{!isLoading && cardsJSX}
 		</div>
 	</div>
 

@@ -9,7 +9,7 @@ export function useNavigation() {
 
   function closeNavigation() {
     setIsOpenNavigation(false)
-    console.log(isOpenNavigation)
+    // console.log(isOpenNavigation)
   }
   
   return { isOpenNavigation, toggleNavigation, closeNavigation }
