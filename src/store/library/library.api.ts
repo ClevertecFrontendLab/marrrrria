@@ -10,7 +10,7 @@ export const libraryApi = createApi({
   }),
   refetchOnFocus: true,
   endpoints: build => ({
-    getBooks: build.query<Book[], null>({
+    getBooks: build.query<Book[], void>({
       query: () => ({
         url: 'api/books',
       })
@@ -20,7 +20,7 @@ export const libraryApi = createApi({
         url: `api/books/${id}`,
       })
     }),
-    getCategories: build.query<Category[], null>({
+    getCategories: build.query<Category[], void>({
       query: () => ({
         url: 'api/categories',
       })
