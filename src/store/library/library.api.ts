@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 
+import { Book, Category, WholeBook } from '../../models/models'
 
 export const libraryApi = createApi({
   reducerPath: 'library/api',
@@ -9,17 +10,17 @@ export const libraryApi = createApi({
   }),
   refetchOnFocus: true,
   endpoints: build => ({
-    getBooks: build.query<any, any>({
+    getBooks: build.query<Book[], null>({
       query: () => ({
         url: 'api/books',
       })
     }),
-    getBook: build.query<any, any>({
+    getBook: build.query<WholeBook, number>({
       query: (id: number) => ({
         url: `api/books/${id}`,
       })
     }),
-    getCategories: build.query<any, any>({
+    getCategories: build.query<Category[], null>({
       query: () => ({
         url: 'api/categories',
       })
