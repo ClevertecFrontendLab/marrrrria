@@ -1,0 +1,27 @@
+.button {
+  @include font ($size: 1.2rem, $weight: 600);
+  letter-spacing: 0.2px;
+  padding: 11px 23px;
+  border-radius: 20px;
+  border: none;
+  
+  @extend %transition;
+//   transition: all .3s;
+
+  &__colored {
+    color: $color-light;
+    background: $color-button-primary;
+
+    &:hover {
+      background: $color-button-hover;
+      cursor: pointer;
+    }
+  }
+
+  &:disabled {
+    background: $button-disabled;
+    border: 1px solid $button-border;
+    color: $color-text-placeholder;
+  }
+
+}

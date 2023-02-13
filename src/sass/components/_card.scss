@@ -1,0 +1,225 @@
+@mixin card($radius, $mbottom) {
+  border-radius: $radius;
+  box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
+  margin-bottom: $mbottom;
+  letter-spacing: 0.1px;
+}
+
+@mixin cover($height, $width, $radius) {
+  background-position: center;
+  height: $height;
+  width: $width;
+  border: 1px solid #A7A7A7;
+  border-radius: $radius;
+  display: inline-block;
+}
+
+.card-block {
+  @include card($radius: 10px, $mbottom: 24px);
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 190px;
+    padding: 8px 8px 16px;
+    height: 470px;
+
+    @include media-tablet-small {
+        align-items: center;
+        width: 100%;
+    }
+  }
+
+  &__cover {
+    @include cover($height: 242px, $width: 174px, $radius: 10px);
+    margin-bottom: 16px;
+
+  }
+
+  &__body {
+    display: flex;
+    height: 43%;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__score {
+    color: $color-text-placeholder;
+
+    >.rating {
+      display: flex;
+      justify-content: space-between;
+      width: 144px;
+    }
+  }
+
+  &__name {
+    display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    color: $color-text;
+
+    @include font($weight: 600);
+    @include media-tablet {
+        @include font($size: 1.2rem, $height: 1.8rem, $weight: 700);
+        -webkit-line-clamp: 2;
+    }
+    @include media-mobile {
+      -webkit-line-clamp: 3;
+        @include font($weight: 600);
+    }
+
+  }
+
+  &__author {
+    color: $color-text-additional;
+    @include media-tablet {
+        @include font($size: 1.2rem, $height: 1.8rem, $weight: 700);
+        text-transform: uppercase;
+    }
+    @include media-mobile{
+        @include font($size: 1.2rem, $height: 1.8rem, $weight: 400);
+        text-transform: capitalize;
+
+    }
+
+  }
+
+  @include media-mobile {
+    margin-bottom: 16px;
+  }
+}
+
+.card-block__button {
+    text-transform: uppercase;
+}
+
+.card-list {
+  @include card($radius: 12px, $mbottom: 16px);
+
+  &__wrapper {
+    display: flex;
+    padding: 16px 24px 16px 16px;
+
+    @include media-mobile {
+      padding: 16px 16px 16px 8px;
+    }
+  }
+
+  &__cover {
+    @include cover($height: 170px, $width: 120px, $radius: 3px);
+
+    @include media-tablet {
+      height: 172px;
+    }
+    @include media-tablet-small {
+      width: 70px;
+      height: 100px;
+    }
+
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    margin-left: 16px;
+    width: 83%;
+
+    @include media-mobile {
+      margin-left: 8px;
+    }
+  }
+
+  &__score {
+    color: $color-text-placeholder;
+    @include media-mobile {
+      margin-bottom: 16px;
+    }
+
+    >.rating {
+      display: flex;
+      justify-content: space-between;
+      width: 144px;
+
+      @include media-mobile {
+        width: 104px;  
+        
+        >.ico_star, .ico_full-star{
+            height: 12.7px;
+            width: 13.3px;
+            background-size: contain;
+            background-repeat: no-repeat;
+          }
+      }
+
+    }
+  }
+
+  &__name {
+    color: $color-text;
+    margin-bottom: 8px;
+
+    @include font($size: 2.2rem, $height: 3.2rem, $weight: 700);
+
+    @include media-tablet {
+      @include font($size: 2.4rem, $height: 3.0rem, $weight: 700);
+    }
+
+    @include media-tablet-small {
+      @include font($size: 1.4rem, $height: 1.8rem, $weight: 600);
+      margin-bottom: 3px;
+      display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+  }
+
+  &__author {
+    color: $color-text-additional;
+    @include font($size: 1.6rem, $height: 2.4rem);
+    margin-bottom: 24px;
+
+    @include media-tablet {
+    }
+
+    @include media-tablet-small {
+    @include font($size: 1.2rem, $height: 1.8rem);
+    margin-bottom: 3px;
+    }
+  }
+
+  @include media-mobile {
+  }
+}
+
+.card__bottom-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include media-tablet-small {
+    flex-wrap: wrap;
+  }
+  @include media-mobile {
+    align-items: flex-start;
+  }
+  
+}
+
+.card-list__button {
+  text-transform: uppercase;
+  width: 174px;
+  align-self: flex-end;
+
+  @include media-tablet-small {
+    width: 186px;
+  }
+
+  @include media-mobile {
+    width: 100%;
+    padding: 11px 0;
+  }
+}
