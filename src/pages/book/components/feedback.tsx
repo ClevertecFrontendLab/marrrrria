@@ -28,7 +28,7 @@ return (
         <div className="feedback__photo" style={pictureStyle}> </div>
         <div className="feedback__info feedback__info_wrap">
             <p>{user.firstName} {user.lastName}</p>
-            <p>{date.toLocaleString("ru", {year: 'numeric', month: 'long', day: 'numeric'})}</p>
+            <p>{date.toLocaleString('ru', { month: 'long', day: 'numeric'}) } {date.getFullYear()}</p>
         </div>
     </div>
     <div className="feedback__score">

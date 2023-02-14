@@ -20,8 +20,7 @@ export function MainPage() {
 	useEffect(() => {
 		addBooks(booksData || [])
 		// addCurrentBooks('all')
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [booksData])
+	}, [addBooks, booksData])
 
 	const {allBooks, currentBooks} = useAppSelector(state => state.library)
 	console.log(allBooks, "ALLBOOKS")
@@ -37,8 +36,7 @@ export function MainPage() {
 
 	useEffect(() => {
 		addCurrentBooks(category || 'all')
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [category, booksData])
+	}, [category, booksData, addCurrentBooks])
 
 	const [view, setView] = useState('block');
 

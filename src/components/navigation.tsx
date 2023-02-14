@@ -25,8 +25,7 @@ export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationPro
 
   useEffect(() => {
     addCategories(data || [])
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data])
+  }, [addCategories, data])
 
   const navigationItems = [
     {
