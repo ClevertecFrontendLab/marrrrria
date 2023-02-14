@@ -24,6 +24,9 @@
 }
 
 .feedback__info_wrap {
+  @include media-tablet-small {
+    flex-wrap: wrap;
+  }
   @include media-mobile {
     flex-direction: column;
     align-items: flex-start;

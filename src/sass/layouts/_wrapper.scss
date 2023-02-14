@@ -3,6 +3,10 @@
   padding: 0 64px;
   margin: 0 auto;
 
+  @include media-tablet-small {
+    padding: 0 42px;
+  }
+  
   @include media-mobile {
     padding: 0 16px;
   }
