@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 
 import { navigationItems } from '../data/navigation'
+import { useActions } from '../hooks/actions'
 import { useGetCategoriesQuery } from '../store/library/library.api'
 
 interface NavigationProps {
@@ -19,7 +20,13 @@ interface NavigationProps {
 export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationProps) {
 
   const {isLoading, isError, data} = useGetCategoriesQuery()
+  const {addCurrentBooks, addCategories} = useActions()
   console.log(data)
+
+  useEffect(() => {
+    addCategories(data || [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   const navigationItems = [
     {
@@ -31,6 +38,12 @@ export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationPro
   ]
 
   console.log(navigationItems)
+
+  // function navItemClickHandler(category:string) {
+  //   closeNavigation()
+  //   addCurrentBooks(category)
+  // }
+
 
   const {category} = useParams()
   const [activeItem, setActiveItem] = useState(!!category)

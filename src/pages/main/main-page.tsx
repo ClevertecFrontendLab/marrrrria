@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Card } from '../../components/card';
@@ -7,12 +7,25 @@ import { Layout } from '../../components/layout';
 import { Loader } from '../../components/loader';
 import {Search} from '../../components/search';
 import {View} from '../../components/view';
+import { useActions } from '../../hooks/actions';
+import { useAppSelector } from '../../hooks/redux';
 // import { booksData as booksDataa } from '../../data/books';
 import { useGetBookQuery, useGetBooksQuery } from '../../store/library/library.api';
 
 export function MainPage() {
 
 	const {isLoading, error, isError, data: booksData} = useGetBooksQuery()
+	const {addBooks, addCurrentBooks} = useActions()
+
+	useEffect(() => {
+		addBooks(booksData || [])
+		// addCurrentBooks('all')
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [booksData])
+
+	const {allBooks, currentBooks} = useAppSelector(state => state.library)
+	console.log(allBooks, "ALLBOOKS")
+	console.log(currentBooks, "CURRBOOKS")
 	
 	// const {isLoading, isError, data} = useGetBookQuery(2) 
 
@@ -21,6 +34,11 @@ export function MainPage() {
 
 
 	const {category} = useParams()
+
+	useEffect(() => {
+		addCurrentBooks(category || 'all')
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [category, booksData])
 
 	const [view, setView] = useState('block');
 
@@ -34,7 +52,7 @@ export function MainPage() {
 		},[]
 	);
 
-	const cardsJSX = booksData?.map(item => <Card category={category || 'all'} data={item} key={`keyforcard-${item.id}`} view={view}/>)
+	const cardsJSX = currentBooks?.map(item => <Card category={category || 'all'} data={item} key={`keyforcard-${item.id}`} view={view}/>)
 
 	// const cardsJSX = booksDataa.map(item => <Card category={category || 'all'} data={item} key={`keyforcard-${item.id}`} view={view}/>)
 
