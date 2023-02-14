@@ -91,6 +91,24 @@
     height: 16px;
     width: 16px;
   }
+
+  &_loader {
+    background-image: url('../../img/icons/loader.svg');
+    height: 68px;
+    width: 70px;
+
+  @include media-tablet {
+    background-image: url('../../img/icons/loader-tablet.svg');
+    width: 44px;
+    height: 44px;
+  }
+  
+  @include media-mobile {
+    background-image: url('../../img/icons/loader-mobile.svg');
+    width: 22px;
+    height: 22px;
+  }
+  }
 }
 
 .ico_hidden {
