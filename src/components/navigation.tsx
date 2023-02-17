@@ -71,11 +71,12 @@ export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationPro
       <ul className='navigation__wrapper'>
       <li className='navigation__item'>
           <NavLink data-test-id={dataTestIds.idWindowBooks} onClick={() => setActiveItem(prev => !prev)} to={`/books/${category || 'all'}`} className={({ isActive }) => isActive ? 'navigation__item_active' : 'navigation__item_passive'}>
-            Витрина Книг<span className={`ico ico_arrow-navigation ${activeItem ? 'navigation__arrow_opened' : 'navigation__arrow_closed'}`}> </span>
+            Витрина Книг
+            {items.length === 1 ? null : <span className={`ico ico_arrow-navigation ${activeItem ? 'navigation__arrow_opened' : 'navigation__arrow_closed'}`}> </span>}
           </NavLink>
           </li>
           <ul className={activeItem ? 'navigation__sub subnavigation subnavigation_active' : 'navigation__sub subnavigation'}>
-              {items}
+              {items.length === 1 ? null : items}
           </ul>
           <li className='navigation__item'>
             <NavLink data-test-id={dataTestIds.idTerms} to="/rules" className={({ isActive }) => isActive ? 'navigation__item_active' : undefined}>

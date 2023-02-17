@@ -67,13 +67,15 @@ export function MainPage() {
 		<div className={`main-page__cards-wrapper main-page__cards-wrapper_${view}`}>
 			
 			{!isLoading && cardsJSX}
-			{isError && <ErrorMessage message="Something"/>}
+			{/* {isError && <ErrorMessage message="Something"/>} */}
+			
 		</div>
 	</div>
 
 
 	return (
 		<React.Fragment>
+			{isError && <ErrorMessage message={(error as any)?.data?.error?.message}/>}
 			{isLoading && <Loader/>}
 			<Layout content={mainPageContent}/>
 		</React.Fragment>

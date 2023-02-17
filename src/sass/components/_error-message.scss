@@ -1,11 +1,15 @@
 .error {
-  position: absolute;
+  // position: absolute;
   z-index: 999;
 
-  // top: 64px;
-  top: -25px;
-  left: 64px;
-  right: 64px;
+  // top: -25px;
+  // left: 64px;
+  // right: 64px;
+
+  // margin: 0 auto;
+  // width: inherit;
+  // max-width: 1238px;
+  // padding: 0 64px;
   
 
 
@@ -15,7 +19,6 @@
   // right: 64px;
 
   padding: 24px 32px ;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -74,8 +77,27 @@
 .error-container {
   flex-grow: 3;
   position: relative;
+
   margin: 0 auto;
-  max-width: 1238px;
+  // max-width: 1238px;
+  width: 100%;
+
   display: flex;
   justify-content: space-around;
+
+
+
+  // position: absolute;
+}
+
+.error-wrapper {
+  max-width: 1238px;
+  padding: 0 64px;
+  margin: 0 auto;
+  @include media-tablet-small {
+    padding: 0 42px;
+  }
+  @include media-mobile {
+    padding: 0 16px;
+  }
 }

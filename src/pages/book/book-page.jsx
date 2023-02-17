@@ -234,8 +234,7 @@ const bookPageContent =
 			</div>
 		</div>
 
-		{isError && <div className="error-container"> <div> </div> <ErrorMessage message={error?.data?.error?.message}/></div>}
-		{/* {isError && <div style={{flexGrow: 3}}> </div>} */}
+		{isError && <div style={{flexGrow: 3}}> </div>}
 
 		{!isError && bookWrapper}
 	</React.Fragment>
@@ -243,6 +242,8 @@ const bookPageContent =
 
   return (
   <section className='book-page'> 
+		{isError && <ErrorMessage message={error?.data?.error?.message}/>}
+
     <Header toggleNavigation={toggleNavigation} isOpenNavigation={isOpenNavigation}/>
 			{isLoading && <Loader/>}
 			{!isLoading && bookPageContent}
