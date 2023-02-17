@@ -1,0 +1,81 @@
+.error {
+  position: absolute;
+  z-index: 999;
+
+  // top: 64px;
+  top: -25px;
+  left: 64px;
+  right: 64px;
+  
+
+
+  //layout__wrapper with position relative now cause loader is not of the top level
+  // top: -25px;
+  // left: 64px;
+  // right: 64px;
+
+  padding: 24px 32px ;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+
+  background: #FEEBEA;
+  border: 1.5px solid #F42C4F;
+  border-radius: 5px;
+
+  @include media-tablet {
+    padding: 24px 16px;
+  }
+  @include media-tablet-small {
+    top: -32px;
+    left: 42px;
+    right: 42px;
+  }
+  @include media-mobile {
+    left: 16px;
+    right: 16px;
+    padding: 12px 16px;
+    align-items: flex-start;
+  }
+
+
+  &__text {
+    @include font($size: 1.6rem, $height: 2.4rem, $weight: 600);
+    color: #363636;
+    display: flex;
+    align-items: center;
+
+    >:first-child {
+      margin-right: 24px;
+
+      @include media-tablet {
+        margin-right: 12px;
+      }
+    }
+
+    @include media-tablet {
+      @include font($size: 1.4rem, $height: 1.8rem, $weight: 600);
+
+      >.ico_error {
+        height: 24px;
+        width: 24px;
+      }
+    }
+
+    @include media-mobile {
+      align-items: flex-start;
+    }
+  }
+}
+
+
+.error-container {
+  flex-grow: 3;
+  position: relative;
+  margin: 0 auto;
+  max-width: 1238px;
+  display: flex;
+  justify-content: space-around;
+}

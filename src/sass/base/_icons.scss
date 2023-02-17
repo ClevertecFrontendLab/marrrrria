@@ -109,6 +109,30 @@
     height: 22px;
   }
   }
+
+  &_error {
+    background-image: url('../../img/icons/error.svg');
+    min-width: 32px;
+    height: 32px;
+
+    @include media-tablet {
+      background-image: url('../../img/icons/error-tablet-mobile.svg');
+      min-width: 24px;
+      height: 24px;
+    }
+  }
+
+  &_error-cross {
+    background-image: url('../../img/icons/error-cross.svg');
+    min-width: 24px;
+    height: 24px;
+
+    @include media-tablet {
+      background-image: url('../../img/icons/error-cross-tablet-mobile.svg');
+      min-width: 16px;
+      height: 16px;
+    }
+  }
 }
 
 .ico_hidden {

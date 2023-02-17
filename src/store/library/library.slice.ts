@@ -5,14 +5,14 @@ interface LibraryState {
   allBooks: Book[],
   allCategories: Category[],
   currentBooks: Book[],
-  // currentCategoryName : string
+  currentCategory : string
 }
 
 const initialState: LibraryState = {
   allBooks: [],
   allCategories: [],
   currentBooks: [],
-  // currentCategoryName: 'Все книги'
+  currentCategory: 'Все книги',
 }
 
 export const librarySlice = createSlice({
@@ -29,10 +29,11 @@ export const librarySlice = createSlice({
 
 
       if (category === 'all') {
-        return {...state, currentBooks:state.allBooks}
+        return {...state, currentBooks:state.allBooks, currentCategory:'Все книги'}
       }
       const currentCategoryName = state?.allCategories?.filter(item => item.path === category)[0]?.name
-      return {...state, currentBooks:state.allBooks.filter(item => item.categories.includes(currentCategoryName))}
+
+      return {...state, currentBooks:state.allBooks.filter(item => item.categories.includes(currentCategoryName)), currentCategory:currentCategoryName}
       
     },
     addCategories(state, action: PayloadAction<Category[]>){

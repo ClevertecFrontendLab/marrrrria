@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { ErrorMessage } from '../../components/error-message';
 
 import { Footer } from '../../components/footer';
 import { Header } from '../../components/header';
@@ -9,6 +10,7 @@ import { Slider } from '../../components/slider';
 import { feedbackData,firstTableContent, secondTableContent } from '../../data/feedback';
 import { useFeedback } from '../../hooks/feedback-hook';
 import { useNavigation } from '../../hooks/navigation-hook';
+import { useAppSelector } from '../../hooks/redux';
 import Cover from '../../img/books/cover.png'
 import Cover2 from '../../img/books/cover2.png'
 import { useGetBookQuery } from '../../store/library/library.api';
@@ -17,6 +19,7 @@ import { createFirstTableData, createSecondTableData } from '../../utils/create-
 import { Feedback } from './components/feedback';
 import { InformationTable } from './components/information-table';
 import { BookLabel } from './components/label';
+// import { Error } from '../../models/models'
 
 export function BookPage() {
 
@@ -24,7 +27,8 @@ export function BookPage() {
 	const { isOpenNavigation, toggleNavigation } = useNavigation()
   const {isFeedbackOpen, toggleFeedback} = useFeedback()
 
-	const {isLoading, error, isError, data: book} = useGetBookQuery(bookId)
+	const {isLoading, error, isError, data: book} = useGetBookQuery(bookId || 4)
+	const {currentCategory} = useAppSelector(state => state.library)
 	// console.log(data)
 	
 
@@ -155,6 +159,7 @@ function openFeedback(number) {
 	}
 }
 console.log(isLoading, error, isError, book)
+// console.log(error.data)
 
 
 const feedbackJsx = book?.comments?.map(item => <Feedback key={item.id} {...item}/>)
@@ -163,14 +168,8 @@ const feedbackJsx = book?.comments?.map(item => <Feedback key={item.id} {...item
 	: book?.booking?.order ? <button className="book__book-button button" disabled={true} type="button"> Забронирована </button>
 	: <button className="book__book-button button button__colored" type="button"> Забронировать </button>
 
-const bookPageContent = <React.Fragment>
-<div className="book__label">
-			<div className="wrapper">
-				<BookLabel category="Бизнесс книги" name="Грокаем алгоритмы. Иллюстрированное пособие для программистов и любопытствующих"/>
-			</div>
-		</div>
-
-		<div className="wrapper book__wrapper">
+	const bookWrapper = 
+	<div className="wrapper book__wrapper">
 
 			<div className="book__main-information">
 				<div>
@@ -225,7 +224,21 @@ const bookPageContent = <React.Fragment>
 				<button data-test-id='button-rating' className="book__estimate-button button button__colored" type="button">Оценить книгу</button>
 
 			</div>
-		</div> </React.Fragment>
+		</div> 
+
+const bookPageContent = 
+  <React.Fragment>
+		<div className="book__label">
+			<div className="wrapper">
+				<BookLabel category={currentCategory} name={book?.title}/>
+			</div>
+		</div>
+
+		{isError && <div className="error-container"> <div> </div> <ErrorMessage message={error?.data?.error?.message}/></div>}
+		{/* {isError && <div style={{flexGrow: 3}}> </div>} */}
+
+		{!isError && bookWrapper}
+	</React.Fragment>
 
 
   return (
@@ -233,6 +246,7 @@ const bookPageContent = <React.Fragment>
     <Header toggleNavigation={toggleNavigation} isOpenNavigation={isOpenNavigation}/>
 			{isLoading && <Loader/>}
 			{!isLoading && bookPageContent}
+			
 		<Footer />
 	</section>
 )

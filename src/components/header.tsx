@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { ErrorMessage } from './error-message'
 import { Navigation } from './navigation'
 
 interface HeaderProps {
@@ -39,6 +40,7 @@ export function Header({toggleNavigation, isOpenNavigation, closeNavigation}: He
         <div data-test-id='burger-navigation' className='header__burger-navigation'>
           <Navigation isOpen={isOpenNavigation} closeNavigation={closeNavigation} dataTestIds={dataTestIds}/>
         </div>
+        {/* {isError && <ErrorMessage/>} */}
     </header>
   
   )

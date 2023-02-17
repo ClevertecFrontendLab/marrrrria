@@ -1,8 +1,13 @@
 .layout {    
 
     &__wrapper {
+        position: relative;
         padding-top: 62px;
         display: flex;
+
+        // flex-grow: 3;
+
+
         min-height: calc(100vh - 155px);
         @include media-tablet-small {
             min-height: calc(100vh - 184px);

@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Card } from '../../components/card';
+import { ErrorMessage } from '../../components/error-message';
 import {Filter} from '../../components/filter';
 import { Layout } from '../../components/layout';
 import { Loader } from '../../components/loader';
@@ -64,13 +65,18 @@ export function MainPage() {
 
 		</div>
 		<div className={`main-page__cards-wrapper main-page__cards-wrapper_${view}`}>
-			{isLoading && <Loader/>}
+			
 			{!isLoading && cardsJSX}
+			{isError && <ErrorMessage message="Something"/>}
 		</div>
 	</div>
 
 
 	return (
-		<Layout content={mainPageContent}/>
+		<React.Fragment>
+			{isLoading && <Loader/>}
+			<Layout content={mainPageContent}/>
+		</React.Fragment>
+		
 	)
 }

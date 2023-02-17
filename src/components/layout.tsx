@@ -4,7 +4,7 @@ import { Header } from './header';
 import { Navigation } from './navigation';
 
 export interface StandardComponentProps {
-    content: React.ReactNode
+    content: React.ReactNode,
 }
 
 export function Layout({content}:StandardComponentProps) {
