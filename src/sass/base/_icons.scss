@@ -1,0 +1,157 @@
+.ico {
+  cursor: pointer;
+  display: inline-flex;
+
+  &_logo {
+    background-image: url("../../img/icons/logo.svg");
+    width: 34px;
+    height: 28px;
+  }
+
+  &_search {
+    background-image: url("../../img/icons/search.svg");
+    width: 16px;
+    height: 16px;
+  }
+
+  &_filter {
+    background-image: url("../../img/icons/filter.svg");
+    width: 16px;
+    height: 16px;
+  }
+
+  &_list {
+    background-image: url("../../img/icons/list.svg");
+    width: 20px;
+    height: 20px;
+  }
+
+  &_block {
+    background-image: url("../../img/icons/block-light.svg");
+    width: 16px;
+    height: 16px;
+  }
+
+  &_facebook {
+    background-image: url("../../img/icons/facebook.svg");
+    width: 10px;
+    height: 18px;
+  }
+
+  &_instagram {
+    background-image: url("../../img/icons/instagram.svg");
+    width: 18px;
+    height: 18px;
+  }
+
+  &_vk {
+    background-image: url("../../img/icons/vk.svg");
+    width: 22px;
+    height: 14px;
+  }
+
+  &_linkedn {
+    background-image: url("../../img/icons/linkedn.svg");
+    width: 18px;
+    height: 19px;
+  }
+
+  &_star {
+    background-image: url('../../img/icons/star.svg');
+    height: 19px;
+    width: 20px;
+  }
+
+  &_full-star {
+    background-image: url('../../img/icons/full-star.svg');
+    height: 19px;
+    width: 20px;
+  }
+
+  &_slash {
+    background-image: url('../../img/icons/slash.svg');
+    height: 20px;
+    width: 11px;
+  }
+
+  &_arrow-navigation {
+    background-image: url('../../img/icons/arrow-navigation.svg');
+    height: 8px;
+    width: 14px;
+  }
+
+  &_arrow-feedback {
+    background-image: url('../../img/icons/arrow-feedback.svg');
+    height: 8px;
+    width: 14px;
+  }
+
+  &_search-close {
+    background-image: url('../../img/icons/search-close.svg');
+    height: 16px;
+    width: 16px;
+  }
+
+  &_loader {
+    background-image: url('../../img/icons/loader.svg');
+    height: 68px;
+    width: 70px;
+
+  @include media-tablet {
+    background-image: url('../../img/icons/loader-tablet.svg');
+    width: 44px;
+    height: 44px;
+  }
+  
+  @include media-mobile {
+    background-image: url('../../img/icons/loader-mobile.svg');
+    width: 22px;
+    height: 22px;
+  }
+  }
+
+  &_error {
+    background-image: url('../../img/icons/error.svg');
+    min-width: 32px;
+    height: 32px;
+
+    @include media-tablet {
+      background-image: url('../../img/icons/error-tablet-mobile.svg');
+      min-width: 24px;
+      height: 24px;
+    }
+  }
+
+  &_error-cross {
+    background-image: url('../../img/icons/error-cross.svg');
+    min-width: 24px;
+    height: 24px;
+
+    @include media-tablet {
+      background-image: url('../../img/icons/error-cross-tablet-mobile.svg');
+      min-width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.ico_hidden {
+  display: none;
+}
+
+.icon {
+  display: inline-flex;
+}
+
+.icon-square {
+  width: 40px;
+  height: 40px;
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &_lilium {
+    background-color: $color-logo;
+  }
+}

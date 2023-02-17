@@ -1,0 +1,324 @@
+@mixin book-button($padding-right:100px, $padding-top:14px) {
+  text-transform: uppercase;
+  padding: $padding-top $padding-right;
+  border-radius: 30px;
+}
+
+.book-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.book__label {
+  margin-top: 42px;
+  background-color: #F9F9FA;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  @include media-tablet {
+    margin-top: 24px;
+  }
+  @include media-mobile {
+    margin-top: 8px;
+  }
+}
+
+.book__wrapper {
+  padding-bottom: 42px;
+
+  @include media-tablet {
+    padding-bottom: 48px;
+  }
+  @include media-mobile {
+    padding-bottom: 20px;
+  }
+}
+
+.book__additional {
+  padding-top: 42px;
+}
+
+.additional__title {
+  @include font($size: 1.8rem, $height: 2.8rem, $weight: 700);
+  color: $color-text;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #EBEBEB;
+  max-width: 350px;
+
+  @include media-tablet {
+    @include font($size: 1.6rem, $height: 2.4rem, $weight: 600);
+  }
+
+  >.ico {
+    margin-left: 24px;
+  }
+}
+
+.book__rating-stars {
+  display: flex;
+  align-items: center;
+  margin-top: 34px;
+
+  >.rating {
+    width: 168px;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 24px;
+  }
+}
+
+.rating__score {
+  @include font($size: 1.8rem, $height: 2.8rem, $weight: 700);
+  color: $color-text;
+}
+
+.additional__information {
+  margin-top: 62px;
+
+  @include media-tablet {
+    margin-top: 52px;
+  }
+}
+
+.additional__detaled-information {
+  display: flex;
+  padding-top: 16px;
+
+  @include media-tablet-small {
+    flex-direction: column;
+  }
+}
+
+.additional__table {
+  &:first-child {
+    min-width: 334px;
+
+    @include media-laptop {
+    min-width: 305px;
+    }
+    @include media-mobile {
+      min-width: 0;
+    }
+  }
+
+  &:last-child {
+    padding-left: 140px;
+
+    @include media-laptop {
+      padding-left: 30px;
+    }
+    @include media-tablet-small {
+      padding-left: 0;
+      padding-top: 16px;
+    }
+  }
+
+  tr {
+    &:last-child {
+      td {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  td {
+    padding-bottom: 16px;
+    vertical-align: top;
+  }
+}
+
+.book__feedback {
+  padding-top: 16px;
+}
+
+.feedback-count {
+  @include font($size: 1.4rem, $height: 2.4rem);
+  color: $color-text-placeholder;
+  padding-left: 6px;
+
+  @include media-tablet {
+    display: none;
+  }
+}
+
+.book__feedback-title {
+  border: none;
+  margin-bottom: 26px;
+}
+
+.additional__title-feedback {
+  cursor: pointer;
+}
+
+.book__estimate-button {
+  text-transform: uppercase;
+  @include font($size: 1.6rem, $height: 2.0rem, $weight: 600);
+  padding: 14px 100px;
+  border-radius: 30px;
+
+  @include media-tablet {
+    width: 100%;
+    padding: 14px 0;
+  }
+
+  @include media-mobile {
+    @include font($size: 1.2rem, $height: 1.8rem, $weight: 600);
+    border-radius: 20px;
+    padding: 11px 0;
+  }
+}
+
+
+
+
+
+
+.book__navigation {
+  display: none;
+
+  @include media-laptop {
+    display: block;
+  }
+}
+
+.book__main-information {
+  padding-top: 42px;
+  display: grid;
+  grid-template-columns: 445px auto;
+  grid-template-rows: auto auto;
+  column-gap: 30px;
+  row-gap: 62px;
+
+  @include media-laptop {
+    grid-template-columns: 136px auto;
+    column-gap: 32px;
+    row-gap: 48px;
+  }
+
+  @include media-tablet {
+    padding-top: 48px;
+  }
+  @include media-tablet-small {
+    padding-top: 20px;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto;
+    column-gap: 0;
+    row-gap: 16px;
+  }
+
+  >:first-child {
+    grid-column-start: 1;
+    grid-row: 1/-1;
+    @include media-laptop {
+      grid-row : 1/2;
+    }
+    @include media-tablet-small {
+      grid-column-start: 1;
+      grid-row-start: 1;
+      display: flex;
+      >*{
+        margin: 0 auto;
+      }
+    }
+  }
+
+  >:last-child {
+    @include media-laptop {
+      grid-column: 1/-1;
+    }
+    @include media-tablet-small {
+      padding-top: 26px;
+      grid-column-start: 1;
+      grid-row-start: 3;
+    }
+  }
+}
+
+.book__title {
+  @include font($size: 3.2rem, $height: 4.0rem, $weight: 700);
+  color: $color-text;
+
+  @include media-laptop {
+    @include font($size: 2.4rem, $height: 3.0rem, $weight: 700);
+  }
+
+  @include media-mobile {
+    @include font($size: 1.8rem, $height: 2.8rem, $weight: 700);
+  }
+}
+
+.book__author {
+  @include font($size: 1.8rem, $height: 2.8rem, $weight: 700);
+  color: $color-text-placeholder;
+  margin-top: 24px;
+
+  @include media-laptop {
+    @include font($size: 1.4rem, $height: 1.8rem, $weight: 600);
+    margin-top: 32px;
+  }
+  @include media-mobile {
+    @include font($size: 1.2rem, $height: 1.8rem, $weight: 400);
+    margin-top: 8px;
+  }
+}
+
+.book__cover {
+  @include cover($height: 594px, $width: 445px, $radius: 10px);
+  @include media-laptop {
+    @include cover($height: 198px, $width: 136px, $radius: 3px);
+  } 
+
+  @include media-mobile {
+    width: 188px;
+    height: 260px;
+    border-radius: 10px;
+  }
+}
+
+.book-book__button {
+  margin-top: 32px;
+  @include book-button($padding-right: 96px);
+  @include font($size: 1.6rem, $height: 2.0rem, $weight: 600);
+
+  @include media-laptop {
+    @include book-button($padding-right: 74px);
+  }
+
+  @include media-mobile {
+    width: 100%;
+    padding: 11px 0;
+    @include font($size: 1.2rem, $height: 1.8rem, $weight: 600);
+  }
+}
+
+.book__about-title {
+  @include font($size: 1.8rem, $height: 2.8rem, $weight: 700);
+  color: $color-text;
+
+  @include media-tablet {
+    @include font($size: 1.6rem, $height: 2.4rem, $weight: 600);
+  }
+
+  @include media-tablet {
+    @include font($size: 1.8rem, $height: 2.8rem, $weight: 700);
+  }
+}
+
+.book__about {
+  @include font($size: 1.6rem, $height: 2.4rem);
+  color: $color-text;
+  margin-top: 32px;
+  white-space: pre-wrap;
+
+  @include media-mobile {
+    @include font($size: 1.2rem, $height: 1.8rem);
+    margin-top: 16px;
+  }
+}
+
+.book_no-estimates {
+  color: #363636;
+  @include font($size: 1.4rem, $height: 1.8rem)
+}

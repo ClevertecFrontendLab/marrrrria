@@ -1,0 +1,23 @@
+.table-information__title {
+  @include font($size: 1.6rem, $height: 2.4rem, $weight: 600);
+  color: $color-text-placeholder;
+
+  @include media-laptop {
+    @include font($size: 1.4rem, $height: 1.8rem, $weight: 600);
+  }
+}
+
+.table-information__value {
+  @include font($size: 1.6rem, $height: 2.4rem, $weight: 400);
+  color: $color-text;
+  padding: 0 0 0 70px;
+
+  @include media-laptop {
+    padding: 0 0 0 33px;
+    @include font($size: 1.4rem, $height: 1.8rem, $weight: 400);
+  }
+
+  @include media-tablet-small {
+    padding: 0 0 0 39px;
+  }
+}

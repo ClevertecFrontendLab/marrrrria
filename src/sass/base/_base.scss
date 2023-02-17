@@ -1,0 +1,16 @@
+html {
+  font-size: 10px;
+}
+
+body {
+  @include font();
+  @extend %font-prim;
+  @extend %transition;
+}
+
+h1 {
+  @include font($size: 3.2rem, $height: 4.0rem, $weight: 700);
+  @include media-mobile {
+    @include font($size: 1.8rem, $height: 2.8rem);
+  }
+}

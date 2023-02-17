@@ -1,0 +1,34 @@
+.book-label {
+  display: inline;
+  color: $color-text-placeholder;
+
+  >span {
+    vertical-align: middle;
+  }
+}
+
+.book-label__category {
+  @include media-mobile {
+    @include font($size: 1.2rem, $height: 1.6rem, $weight: 500);
+  }
+}
+
+.book-label__slash {
+  margin-left: 11px;
+  margin-right: 12px;
+
+  @include media-mobile {
+    margin-left: 8px;
+    margin-right: 9px;
+  }
+}
+
+.book-label__name {
+  @include media-tablet {
+    @include font($size: 1.6rem, $height: 2.4rem);
+  }
+
+  @include media-mobile {
+    @include font($size: 1.2rem, $height: 1.6rem, $weight: 500);
+  }
+}

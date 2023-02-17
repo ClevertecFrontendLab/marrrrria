@@ -1,0 +1,61 @@
+.view {
+  display: flex;
+
+  &__button {
+    height: 38px;
+    width: 38px;
+    border-radius: 50%;
+    border: none;
+    background: $color-light;
+    box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .7s ease-out; 
+
+    @include media-mobile {
+      width: 32px;
+      height: 32px;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    >.ico_list {
+      background-image: url('../../img/icons/list.svg');
+    }
+  
+    >.ico_block {
+      background-image: url('../../img/icons/block.svg');
+    }
+
+    &:hover {
+      background: $color-button-hover;
+
+      >.ico_list {
+        background-image: url('../../img/icons/list-light.svg');
+      }
+
+      >.ico_block {
+        background-image: url('../../img/icons/block-light.svg');
+      }
+    }
+
+    &_active {
+      background: $color-button-primary;
+
+      >.ico_list {
+        background-image: url('../../img/icons/list-light.svg');
+      }
+      >.ico_block {
+        background-image: url('../../img/icons/block-light.svg');
+      }
+    }
+
+    &:first-child {
+      margin-right: 16px;
+    }
+  }
+}

@@ -1,0 +1,129 @@
+.slider__picture {
+  @include cover(86px, 65px, 3px);
+  cursor: pointer;
+
+  @include media-laptop {
+    cursor: pointer;
+    width: 7px;
+    height: 7px;
+    background-image: url('../../img/books/dot.svg') !important;
+    border-radius: 50%;
+    border: none;
+  }
+
+  &_active {
+    border: 1px solid #F83600;
+
+    @include media-laptop {
+      border: none;
+      width: 9px;
+      height: 9px;
+      background-image: url('../../img/books/dot-active.svg') !important;
+    }
+  }
+}
+
+
+.slide__wrapper {
+  max-height: 594px;
+
+
+  @include media-laptop {
+    min-height: 238px;
+  }
+
+  @include media-tablet-small {
+    max-width: 136px;
+  }
+
+  @include media-mobile {
+    max-width: 188px;
+    min-height: 300px;
+  }
+
+  .swiper-pagination {
+    display: none;
+
+    @include media-laptop {
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .swiper-pagination-bullet {
+      @include media-mobile {
+        margin: 9px 5px 8px 5px;
+      }
+
+      margin: 9px 4px 8px 4px;
+      width: 7px;
+      height: 7px;
+      background: #BFC4C9;
+      opacity: 1;
+
+      &-active {
+        background: #363636;
+        width: 9px;
+        height: 9px;
+      }
+    }
+  }
+}
+
+.slider__wrapper {
+  mask: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 17.19%, #FFFFFF 83.33%, rgba(255, 255, 255, 0) 100%);
+  padding-top: 16px;
+  display: block;
+
+  @include media-laptop {
+    display: none;
+  }
+
+  .swiper-slide-thumb-active {
+    .slider__picture {
+      border: 1px solid #F83600;
+      width: 65px;
+      height: 86px;
+
+      @include media-laptop {
+        border: none;
+        width: 9px;
+        height: 9px;
+        background-image: url('../../img/books/dot-active.svg') !important;
+      }
+    }
+  }
+
+  .swiper-scrollbar {
+    margin-top: 8px;
+    position: static;
+    background-color: #ffffff00;
+    height: auto;
+
+    .swiper-scrollbar-drag {
+      background: #A7A7A7;
+      border-radius: 4px;
+      height: 6px;
+    }
+  }
+  
+  &:hover {
+    .swiper-scrollbar {
+      opacity: 1 !important;
+    }
+  }
+
+  .swiper-wrapper {
+    width: fit-content;
+    .swiper-slide:last-child {
+      margin-right: 0 !important;
+    }
+
+    margin: 0 auto;
+
+    .swiper-slide {
+      max-height: 86px;
+    }
+  }
+}
