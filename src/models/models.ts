@@ -5,7 +5,7 @@
   export interface Booking {
     id: number;
     order: boolean;
-    dateOrder: Date; // ???????!!!!!!
+    dateOrder: Date;
     customerId: number;
     customerFirstName: string;
     customerLastName: string;
@@ -14,8 +14,8 @@
   export interface Delivery {
     id: number;
     handed: boolean;
-    dateHandedFrom: Date; // ????!!!!
-    dateHandedTo: Date; // ??!!??!!??!!
+    dateHandedFrom: Date;
+    dateHandedTo: Date;
     recipientId: number;
     recipientFirstName: string;
     recipientLastName: string;
@@ -50,7 +50,7 @@
     id: number,
     rating: number,
     text: string,
-    createdAt: string, // ??!!??!!??!!
+    createdAt: string,
     user: User,
   }
 

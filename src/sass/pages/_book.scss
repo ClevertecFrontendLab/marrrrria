@@ -183,44 +183,6 @@
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .book__main-information {
   padding-top: 42px;
   display: grid;
@@ -315,7 +277,7 @@
   }
 }
 
-.book__book-button {
+.book-book__button {
   margin-top: 32px;
   @include book-button($padding-right: 96px);
   @include font($size: 1.6rem, $height: 2.0rem, $weight: 600);

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import bookPlaceholder from '../img/books/bookPlaceholder.svg'
 import { Book } from '../models/models';
 
+import { ButtonBook } from './button-book';
 import { Rating } from './rating';
 
 export interface DataI {
@@ -12,8 +13,6 @@ export interface DataI {
 }
 
 export function Card({data, view, category}: DataI) {
-
-  //! Something with categories to do 
 
   const styleCover =
   data.image?.url ?
@@ -26,9 +25,7 @@ export function Card({data, view, category}: DataI) {
     backgroundRepeat: 'no-repeat',
   }
 
-  const buttonText = data?.booking?.order && data?.delivery?.dateHandedTo ? `Занята до ${data?.delivery.dateHandedTo}` : data?.booking?.order ? 'Забронирована' : 'Забронировать';
-
-  const cardButton = <button className={`card-${view}__button button ${!data?.booking?.order ? 'button__colored' : ''}`} disabled={data?.booking?.order} type="button">{buttonText}</button>
+  const cardButton = <ButtonBook order={data?.booking?.order} dateHandedTo={data?.delivery?.dateHandedTo} view={`card-${view}`}/>
 
   const cardBody = view === 'block' ?
       <div className={`card-${view}__body`}>

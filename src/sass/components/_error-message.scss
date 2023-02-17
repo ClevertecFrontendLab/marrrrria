@@ -1,23 +1,5 @@
 .error {
-  // position: absolute;
   z-index: 999;
-
-  // top: -25px;
-  // left: 64px;
-  // right: 64px;
-
-  // margin: 0 auto;
-  // width: inherit;
-  // max-width: 1238px;
-  // padding: 0 64px;
-  
-
-
-  //layout__wrapper with position relative now cause loader is not of the top level
-  // top: -25px;
-  // left: 64px;
-  // right: 64px;
-
   padding: 24px 32px ;
   display: flex;
   align-items: center;
@@ -77,17 +59,10 @@
 .error-container {
   flex-grow: 3;
   position: relative;
-
   margin: 0 auto;
-  // max-width: 1238px;
   width: 100%;
-
   display: flex;
   justify-content: space-around;
-
-
-
-  // position: absolute;
 }
 
 .error-wrapper {

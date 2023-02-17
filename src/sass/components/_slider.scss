@@ -49,7 +49,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      // padding-top: 100px;
     }
 
     .swiper-pagination-bullet {
@@ -76,7 +75,6 @@
   mask: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 17.19%, #FFFFFF 83.33%, rgba(255, 255, 255, 0) 100%);
   padding-top: 16px;
   display: block;
-  // justify-content: center;
 
   @include media-laptop {
     display: none;
@@ -84,7 +82,6 @@
 
   .swiper-slide-thumb-active {
     .slider__picture {
-      // margin: 0 auto;
       border: 1px solid #F83600;
       width: 65px;
       height: 86px;
@@ -101,10 +98,8 @@
   .swiper-scrollbar {
     margin-top: 8px;
     position: static;
-    // position: absolute;
     background-color: #ffffff00;
     height: auto;
-    // opacity: 0;
 
     .swiper-scrollbar-drag {
       background: #A7A7A7;
@@ -128,7 +123,6 @@
     margin: 0 auto;
 
     .swiper-slide {
-      // min-width: 95px;
       max-height: 86px;
     }
   }

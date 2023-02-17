@@ -10,8 +10,7 @@ import {Search} from '../../components/search';
 import {View} from '../../components/view';
 import { useActions } from '../../hooks/actions';
 import { useAppSelector } from '../../hooks/redux';
-// import { booksData as booksDataa } from '../../data/books';
-import { useGetBookQuery, useGetBooksQuery } from '../../store/library/library.api';
+import { useGetBooksQuery } from '../../store/library/library.api';
 
 export function MainPage() {
 
@@ -20,18 +19,9 @@ export function MainPage() {
 
 	useEffect(() => {
 		addBooks(booksData || [])
-		// addCurrentBooks('all')
 	}, [addBooks, booksData])
 
-	const {allBooks, currentBooks} = useAppSelector(state => state.library)
-	console.log(allBooks, "ALLBOOKS")
-	console.log(currentBooks, "CURRBOOKS")
-	
-	// const {isLoading, isError, data} = useGetBookQuery(2) 
-
-    // console.log(isError)
-    // console.log(isLoading, error, isError, booksData)
-
+	const { currentBooks } = useAppSelector(state => state.library)
 
 	const {category} = useParams()
 
@@ -53,8 +43,6 @@ export function MainPage() {
 
 	const cardsJSX = currentBooks?.map(item => <Card category={category || 'all'} data={item} key={`keyforcard-${item.id}`} view={view}/>)
 
-	// const cardsJSX = booksDataa.map(item => <Card category={category || 'all'} data={item} key={`keyforcard-${item.id}`} view={view}/>)
-
 	const mainPageContent = <div className="main-page">
     <div className="main-page__settings">
 		<div className="main-page-search-filter-line">
@@ -65,10 +53,7 @@ export function MainPage() {
 
 		</div>
 		<div className={`main-page__cards-wrapper main-page__cards-wrapper_${view}`}>
-			
-			{!isLoading && cardsJSX}
-			{/* {isError && <ErrorMessage message="Something"/>} */}
-			
+			{!isLoading && cardsJSX}			
 		</div>
 	</div>
 

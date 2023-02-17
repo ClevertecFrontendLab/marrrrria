@@ -1,15 +1,6 @@
 import { Rating } from '../../../components/rating';
-import { Comment } from '../../../models/models';
 import FeedbackAvatar from '../../../img/feedback/feedback-photo.png'
-
-// export interface PropI {
-//   photo: string,
-//   name: string,
-//   date: string,
-//   ratingScore: number,
-//   message: string,
-// }
-// 
+import { Comment } from '../../../models/models';
 
 export function Feedback(props:Comment) {
 const {user, createdAt, rating, text} = props

@@ -1,5 +1,3 @@
-import React from 'react'
-
 export interface PropI {
   changeHandler: (value:string) => void,
   view: string,

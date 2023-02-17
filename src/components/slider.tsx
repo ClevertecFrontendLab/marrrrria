@@ -1,23 +1,18 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import React, { useState } from 'react';
 import { FreeMode, Pagination,Scrollbar, Thumbs} from 'swiper';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Swiper, SwiperSlide } from 'swiper/react'; 
 
 import bookPlaceholder from '../img/books/bookPlaceholder.svg'
+import { Image } from '../models/models';
 
 import 'swiper/css';
 import 'swiper/css/scrollbar';
 import 'swiper/css/pagination';
 import 'swiper/css/free-mode';
 import 'swiper/css/thumbs';
-import { Image } from '../models/models';
-
 
 interface SliderProps { 
-  // data: string[],
   data: Image[],
-
 }
 
 

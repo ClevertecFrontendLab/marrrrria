@@ -12,7 +12,6 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    // @extend %transition;
     transition: all .7s ease-out; 
 
     @include media-mobile {

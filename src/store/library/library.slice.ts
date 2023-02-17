@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Book, Category } from "../../models/models";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { Book, Category } from '../../models/models';
 
 interface LibraryState {
   allBooks: Book[],
@@ -20,11 +21,9 @@ export const librarySlice = createSlice({
   initialState,
   reducers: {
     addBooks(state, action: PayloadAction<Book[]>) {
-      // state.allBooks.push(...action.payload)
       return {...state, allBooks:action.payload}
     },
     addCurrentBooks(state, action: PayloadAction<string>) {
-      console.log(action.payload)
       const category = action.payload
 
 

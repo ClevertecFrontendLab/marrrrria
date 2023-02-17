@@ -1,4 +1,4 @@
-import { WholeBook } from "../models/models";
+import { WholeBook } from '../models/models';
 
 export function createFirstTableData(data: WholeBook) {
   const response = [

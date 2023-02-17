@@ -5,9 +5,6 @@
   font-style: $style;
 }
 
-//TODO: create shadow mixin and column mixin and for images with border-radius
-
-
 @mixin media-laptop {
     @media (max-width: $content-width) { @content; }
   }
