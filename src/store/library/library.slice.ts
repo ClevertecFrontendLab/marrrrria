@@ -35,7 +35,7 @@ export const librarySlice = createSlice({
       return {...state, currentBooks:state.allBooks.filter(item => item.categories.includes(currentCategoryName)), currentCategory:currentCategoryName}
       
     },
-    addCategories(state, action: PayloadAction<Category[]>){
+    addCategories(state, action: PayloadAction<Category[]>){ 
       return {...state, allCategories:action.payload}
     }
   }

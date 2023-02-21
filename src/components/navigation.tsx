@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 
 import { useActions } from '../hooks/actions'
+import { useAppSelector } from '../hooks/redux'
 import { useGetCategoriesQuery } from '../store/library/library.api'
 
 interface NavigationProps {
@@ -35,7 +36,9 @@ export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationPro
   ]
 
   const {category} = useParams()
-  const [activeItem, setActiveItem] = useState(!!category)
+  const [activeItem, setActiveItem] = useState(!!category) 
+
+  const { currentBooks } = useAppSelector(state => state.library)
 
   const items = navigationItems.map(item => 
   <li data-test-id={item.name === 'Все книги' ? dataTestIds.idAllBooks : ''} role="presentation" onClick={closeNavigation} key={`navigation-item-${item.id}`} className='subnavigation__item'>
@@ -44,7 +47,7 @@ export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationPro
       <React.Fragment>
         <span data-test-id='navigation-books' className={` ${isActive ? 'subnavigation__item_active' : undefined}`}>
           {item.name}
-        </span><span className='navigation__item-count'>&nbsp; {/** ADD NUMBER */} &shy;</span>
+        </span><span className='navigation__item-count'>&nbsp; {currentBooks.length} &shy;</span>
       </React.Fragment>
       )}
     </NavLink>
