@@ -37,6 +37,17 @@ export const librarySlice = createSlice({
     },
     addCategories(state, action: PayloadAction<Category[]>){ 
       return {...state, allCategories:action.payload}
+    },
+    filterByRating(state, action: PayloadAction<boolean>) {
+      function sortBy(a:Book, b:Book) {
+        if(action.payload) {
+          return b.rating - a.rating
+        }
+
+        return a.rating - b.rating
+      }
+      state.currentBooks.sort(sortBy)
+      // return {...state, currentBooks:state.currentBooks.sort(sortBy)}
     }
   }
 })

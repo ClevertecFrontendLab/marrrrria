@@ -15,7 +15,7 @@ import { useGetBooksQuery } from '../../store/library/library.api';
 export function MainPage() {
 
 	const {isLoading, error, isError, data: booksData} = useGetBooksQuery()
-	const {addBooks, addCurrentBooks} = useActions()
+	const {addBooks, addCurrentBooks, filterByRating} = useActions()
 
 	useEffect(() => {
 		addBooks(booksData || [])
@@ -27,7 +27,8 @@ export function MainPage() {
 
 	useEffect(() => {
 		addCurrentBooks(category || 'all')
-	}, [category, booksData, addCurrentBooks])
+		filterByRating(true)
+	}, [category, booksData, addCurrentBooks, filterByRating])
 
 	const [view, setView] = useState('block');
 
@@ -52,6 +53,7 @@ export function MainPage() {
 		<View changeHandler={changeHandler} view={view}/>
 
 		</div>
+		{!cardsJSX.length && <p className='main-page__no-cards'>В этой категории книг ещё нет</p>}
 		<div className={`main-page__cards-wrapper main-page__cards-wrapper_${view}`}>
 			{!isLoading && cardsJSX}			
 		</div>

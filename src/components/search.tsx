@@ -4,7 +4,7 @@ export function Search() {
 
   const [isOpen, setIsOpen] = useState(false)
 
-  function toggleSearch() {
+  function toggleSearch() { 
     if(document.body.clientWidth < 720) {
       setIsOpen(prev => !prev)
     }
