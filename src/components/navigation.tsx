@@ -3,6 +3,7 @@ import { NavLink, useParams } from 'react-router-dom'
 
 import { useActions } from '../hooks/actions'
 import { useAppSelector } from '../hooks/redux'
+import { Book } from '../models/models'
 import { useGetCategoriesQuery } from '../store/library/library.api'
 
 interface NavigationProps {
@@ -17,10 +18,36 @@ interface NavigationProps {
   
 }
 
+// interface Dic {
+//     [key: string]: number
+// }
+
 export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationProps) {
 
   const {isLoading, isError, data} = useGetCategoriesQuery()
   const { addCategories } = useActions()
+	const { allBooks } = useAppSelector(state => state.library)
+  const categoryCount = calculateBooks(allBooks)
+
+
+  function calculateBooks(books:Book[]) {
+    const categoryCount: Record<string,number> = {}
+
+    books.forEach(book => {
+      book.categories.forEach(category => {
+        // categoryCount[category] ? categoryCount[category]++ : categoryCount[category] = 1
+        if (categoryCount[category]) {
+          categoryCount[category]+=1
+        }
+        else {
+          categoryCount[category] = 1
+        }
+      });
+    });
+
+    return categoryCount
+  }
+
 
   useEffect(() => {
     addCategories(data || [])
@@ -31,6 +58,7 @@ export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationPro
       id: 0,
       name: 'Все книги',
       path: 'all',
+      count: ' ',
     },
     ...data || [],
   ]
@@ -47,7 +75,8 @@ export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationPro
       <React.Fragment>
         <span data-test-id='navigation-books' className={` ${isActive ? 'subnavigation__item_active' : undefined}`}>
           {item.name}
-        </span><span className='navigation__item-count'>&nbsp; {currentBooks.length} &shy;</span>
+        {/* </span><span className='navigation__item-count'>&nbsp; {currentBooks.length} &shy;</span> */}
+        </span><span className='navigation__item-count'>&nbsp; {categoryCount[item.name] || item.count || 0} &shy;</span>
       </React.Fragment>
       )}
     </NavLink>

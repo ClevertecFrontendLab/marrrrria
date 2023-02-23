@@ -15,20 +15,20 @@ import { useGetBooksQuery } from '../../store/library/library.api';
 export function MainPage() {
 
 	const {isLoading, error, isError, data: booksData} = useGetBooksQuery()
-	const {addBooks, addCurrentBooks, filterByRating} = useActions()
+	const {addBooks, addCurrentBooks} = useActions()
 
 	useEffect(() => {
 		addBooks(booksData || [])
 	}, [addBooks, booksData])
 
-	const { currentBooks } = useAppSelector(state => state.library)
+	const { currentBooks, isSortedByTop } = useAppSelector(state => state.library)
 
 	const {category} = useParams()
 
 	useEffect(() => {
 		addCurrentBooks(category || 'all')
-		filterByRating(true)
-	}, [category, booksData, addCurrentBooks, filterByRating])
+		// filterByRating(true)
+	}, [category, booksData, addCurrentBooks, isSortedByTop])
 
 	const [view, setView] = useState('block');
 
