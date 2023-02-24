@@ -9,12 +9,12 @@ export const libraryApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://strapi.cleverland.by'
   }) as unknown as BaseQueryFn<string | FetchArgs, unknown, object>,
-  refetchOnFocus: true,
   endpoints: build => ({
     getBooks: build.query<Book[], void>({
       query: () => ({
         url: 'api/books',
-      })
+      }),
+      // refetchOnFocus: true,
     }),
     getBook: build.query<WholeBook, number>({
       query: (id: number) => ({

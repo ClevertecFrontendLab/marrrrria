@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Card } from '../../components/card';
@@ -12,16 +12,22 @@ import { useActions } from '../../hooks/actions';
 import { useAppSelector } from '../../hooks/redux';
 import { useGetBooksQuery } from '../../store/library/library.api';
 
+
+
+
 export function MainPage() {
 
 	const {isLoading, error, isError, data: booksData} = useGetBooksQuery()
+	// const {isLoading, error, isError, data: booksData} = useGetBooksQuery({
+	// 	refetchOnFocus:true,
+	// })
 	const {addBooks, addCurrentBooks} = useActions()
 
 	useEffect(() => {
 		addBooks(booksData || [])
 	}, [addBooks, booksData])
 
-	const { currentBooks, isSortedByTop } = useAppSelector(state => state.library)
+	const { currentBooks, isSortedByTop, searchValue } = useAppSelector(state => state.library)
 
 	const {category} = useParams()
 
@@ -42,7 +48,32 @@ export function MainPage() {
 		},[]
 	);
 
-	const cardsJSX = currentBooks?.map(item => <Card category={category || 'all'} data={item} key={`keyforcard-${item.id}`} view={view}/>)
+	const [shownBooks, setShownBooks] = useState(currentBooks)
+
+	// const searchMatches = useCallback(
+	// 	(value: string) => {
+	// 		console.log('gfgf')
+	// 		filteredData(value)
+	// 		setShownBooks(filt)
+	// 	}, []
+	// )
+
+	const filteredData = useMemo(() => currentBooks.filter(({ title }) => {
+		const lowerCaseTitle = title.toLowerCase();
+		const lowerCasesearchValue = searchValue.toLowerCase();
+
+		return (
+			lowerCaseTitle.includes(lowerCasesearchValue)
+		);
+	}), [currentBooks, searchValue]);
+
+	const cardsJSX = filteredData?.map(item => <Card category={category || 'all'} data={item} key={`keyforcard-${item.id}`} view={view}/>)
+	// const noCardsText = !currentBooks.length ? <p className='main-page__no-cards'>В этой категории книг ещё нет</p> :
+	// !cardsJSX.length ? <p className='main-page__no-cards'>По запросу ничего не найдено</p> : null
+
+	const noCardsText = currentBooks.length ? cardsJSX.length ? null : 
+	<p className='main-page__no-cards'>По запросу ничего не найдено</p> :
+	<p className='main-page__no-cards'>В этой категории книг ещё нет</p> 
 
 	const mainPageContent = <div className="main-page">
     <div className="main-page__settings">
@@ -53,7 +84,9 @@ export function MainPage() {
 		<View changeHandler={changeHandler} view={view}/>
 
 		</div>
-		{!cardsJSX.length && <p className='main-page__no-cards'>В этой категории книг ещё нет</p>}
+		{/* {!currentBooks.length && <p className='main-page__no-cards'>В этой категории книг ещё нет</p>}
+		{!cardsJSX.length && currentBooks.length  && <p className='main-page__no-cards'>По запросу ничего не найдено</p>} */}
+		{noCardsText}
 		<div className={`main-page__cards-wrapper main-page__cards-wrapper_${view}`}>
 			{!isLoading && cardsJSX}			
 		</div>

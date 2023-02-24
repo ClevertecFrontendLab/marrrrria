@@ -7,7 +7,8 @@ interface LibraryState {
   allCategories: Category[],
   currentBooks: Book[],
   currentCategory : string,
-  isSortedByTop: boolean
+  isSortedByTop: boolean,
+  searchValue: string,
 }
 
 const initialState: LibraryState = {
@@ -16,12 +17,16 @@ const initialState: LibraryState = {
   currentBooks: [],
   currentCategory: 'Все книги',
   isSortedByTop: true,
+  searchValue: '',
 }
 
 export const librarySlice = createSlice({
   name: 'library',
   initialState,
   reducers: {
+    setSearchValue(state, action: PayloadAction<string>) {
+      return {...state, searchValue:action.payload}
+    },
     addBooks(state, action: PayloadAction<Book[]>) {
       return {...state, allBooks:action.payload}
     },
