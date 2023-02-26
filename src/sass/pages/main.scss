@@ -25,7 +25,11 @@
 .main-page__cards-wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  //justify-content: space-between;
+  gap: calc((100% - 190px * 4 ) / 3);
+  @include media-tablet {
+    gap: calc((100% - 190px * 3 ) / 2);
+  }
   padding-top: 32px;
 }
 
