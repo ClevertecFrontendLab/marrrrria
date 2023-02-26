@@ -80,6 +80,7 @@
     name: string,
     path: string,
     id: number,
+    count?: string|number,
   }
 
 

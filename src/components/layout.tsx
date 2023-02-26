@@ -5,7 +5,7 @@ import { Header } from './header';
 import { Navigation } from './navigation';
 
 export interface StandardComponentProps {
-    content: React.ReactNode,
+  content: React.ReactNode,
 }
 
 export function Layout({content}:StandardComponentProps) {
@@ -17,6 +17,7 @@ export function Layout({content}:StandardComponentProps) {
     idAllBooks: 'navigation-books',
     idTerms: 'navigation-terms',
     idContract: 'navigation-contract',
+    prefix: 'navigation-',
   }
 
 	return (
@@ -29,7 +30,7 @@ export function Layout({content}:StandardComponentProps) {
 			<div className="layout__content">
 				{content}
 			</div>
-		</div> 
+		</div>
 		<Footer/>
 	</div>
 	)

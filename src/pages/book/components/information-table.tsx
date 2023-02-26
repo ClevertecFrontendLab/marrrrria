@@ -13,7 +13,7 @@ export function InformationTable({contentArray}:PropI) {
 
   return (
     <table className="table-information">
-      <tbody> 
+      <tbody>
         {content}
       </tbody>
     </table>

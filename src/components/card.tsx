@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 import bookPlaceholder from '../img/books/bookPlaceholder.svg'
 import { Book } from '../models/models';
+import { HighlightedText } from '../utils/highlighted-text';
 
 import { ButtonBook } from './button-book';
 import { Rating } from './rating';
@@ -25,17 +26,19 @@ export function Card({data, view, category}: DataI) {
     backgroundRepeat: 'no-repeat',
   }
 
+  const bookTitle =  <HighlightedText text={data.title} />
+
   const cardButton = <ButtonBook order={data?.booking?.order} dateHandedTo={data?.delivery?.dateHandedTo} view={`card-${view}`}/>
 
   const cardBody = view === 'block' ?
       <div className={`card-${view}__body`}>
         <div className={`card-${view}__score`}> {data.rating > 0 ? <Rating score={data.rating}/> : 'eщё нет оценок' } </div>
-        <p className={`card-${view}__name`}> {data.title} </p>
+        <p className={`card-${view}__name`}> {bookTitle} </p>
         <p className={`card-${view}__author`}> {data.authors.join(', ')} {data.issueYear}</p>
         {cardButton}
       </div>
     : <div className={`card-${view}__body`}>
-        <p className={`card-${view}__name`}> {data.title} </p>
+        <p className={`card-${view}__name`}> {bookTitle} </p>
         <p className={`card-${view}__author`}> {data.authors.join(', ')} {data.issueYear}</p>
         <div className='card__bottom-line'>
           <div className={`card-${view}__score`}> {data.rating > 0 ? <Rating score={data.rating}/> : 'eщё нет оценок' } </div>
