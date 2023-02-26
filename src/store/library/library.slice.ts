@@ -44,10 +44,9 @@ export const librarySlice = createSlice({
       let currentBooks = []
 
       if (category === 'all') {
-        // return {...state, currentBooks:state.allBooks, currentCategory:'Все книги'}
         currentCategoryName = 'Все книги'
         currentBooks = state.allBooks.map((item) => item)
-      } 
+      }
       else {
         currentCategoryName = state?.allCategories?.filter(item => item.path === category)[0]?.name
         currentBooks = state.allBooks.filter(item => item.categories.includes(currentCategoryName))
@@ -55,23 +54,13 @@ export const librarySlice = createSlice({
       currentBooks.sort(sortBy)
 
       return {...state, currentBooks, currentCategory:currentCategoryName}
-      // return {...state, currentBooks:state.allBooks.filter(item => item.categories.includes(currentCategoryName)), currentCategory:currentCategoryName}
-      
+
     },
-    addCategories(state, action: PayloadAction<Category[]>){ 
+    addCategories(state, action: PayloadAction<Category[]>){
       return {...state, allCategories:action.payload}
     },
     filterByRating(state, action: PayloadAction<boolean>) {
-      // function sortBy(a:Book, b:Book) {
-      //   if(action.payload) {
-      //     return b.rating - a.rating
-      //   }
-
-      //   return a.rating - b.rating
-      // }
-      // state.currentBooks.sort(sortBy)
       return {...state, isSortedByTop:action.payload}
-      // return {...state, currentBooks:state.currentBooks.sort(sortBy)}
     }
   }
 })

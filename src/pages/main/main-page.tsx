@@ -12,20 +12,22 @@ import { useActions } from '../../hooks/actions';
 import { useAppSelector } from '../../hooks/redux';
 import { useGetBooksQuery } from '../../store/library/library.api';
 
-
-
-
 export function MainPage() {
 
-	const {isLoading, error, isError, data: booksData} = useGetBooksQuery()
-	// const {isLoading, error, isError, data: booksData} = useGetBooksQuery({
-	// 	refetchOnFocus:true,
-	// })
+    const [isRefetch, setIsRefetch] = useState(false)
+	const {error, isError, data: booksData, refetch, isFetching} = useGetBooksQuery()
 	const {addBooks, addCurrentBooks} = useActions()
 
 	useEffect(() => {
 		addBooks(booksData || [])
 	}, [addBooks, booksData])
+
+    useEffect(() => {
+        if (!isFetching && !isRefetch) {
+            refetch()
+        }
+        setIsRefetch(true)
+    }, [isRefetch,isFetching,refetch])
 
 	const { currentBooks, isSortedByTop, searchValue } = useAppSelector(state => state.library)
 
@@ -33,7 +35,6 @@ export function MainPage() {
 
 	useEffect(() => {
 		addCurrentBooks(category || 'all')
-		// filterByRating(true)
 	}, [category, booksData, addCurrentBooks, isSortedByTop])
 
 	const [view, setView] = useState('block');
@@ -48,16 +49,6 @@ export function MainPage() {
 		},[]
 	);
 
-	const [shownBooks, setShownBooks] = useState(currentBooks)
-
-	// const searchMatches = useCallback(
-	// 	(value: string) => {
-	// 		console.log('gfgf')
-	// 		filteredData(value)
-	// 		setShownBooks(filt)
-	// 	}, []
-	// )
-
 	const filteredData = useMemo(() => currentBooks.filter(({ title }) => {
 		const lowerCaseTitle = title.toLowerCase();
 		const lowerCasesearchValue = searchValue.toLowerCase();
@@ -68,27 +59,22 @@ export function MainPage() {
 	}), [currentBooks, searchValue]);
 
 	const cardsJSX = filteredData?.map(item => <Card category={category || 'all'} data={item} key={`keyforcard-${item.id}`} view={view}/>)
-	// const noCardsText = !currentBooks.length ? <p className='main-page__no-cards'>В этой категории книг ещё нет</p> :
-	// !cardsJSX.length ? <p className='main-page__no-cards'>По запросу ничего не найдено</p> : null
 
-	const noCardsText = currentBooks.length ? cardsJSX.length ? null : 
-	<p className='main-page__no-cards'>По запросу ничего не найдено</p> :
-	<p className='main-page__no-cards'>В этой категории книг ещё нет</p> 
+	const noCardsText = currentBooks.length ? cardsJSX.length ? null :
+	<p data-test-id='search-result-not-found' className='main-page__no-cards'>По запросу ничего не найдено</p> :
+	<p data-test-id='empty-category' className='main-page__no-cards'>В этой категории книг ещё нет</p>
 
 	const mainPageContent = <div className="main-page">
     <div className="main-page__settings">
-		<div className="main-page-search-filter-line">
+		  <div className="main-page-search-filter-line">
 				<Search/>
 				<Filter/>
+		  </div>
+		  <View changeHandler={changeHandler} view={view}/>
 		</div>
-		<View changeHandler={changeHandler} view={view}/>
-
-		</div>
-		{/* {!currentBooks.length && <p className='main-page__no-cards'>В этой категории книг ещё нет</p>}
-		{!cardsJSX.length && currentBooks.length  && <p className='main-page__no-cards'>По запросу ничего не найдено</p>} */}
 		{noCardsText}
 		<div className={`main-page__cards-wrapper main-page__cards-wrapper_${view}`}>
-			{!isLoading && cardsJSX}			
+			{!isFetching && cardsJSX}
 		</div>
 	</div>
 
@@ -96,9 +82,8 @@ export function MainPage() {
 	return (
 		<React.Fragment>
 			{isError && <ErrorMessage message={(error as any)?.data?.error?.message}/>}
-			{isLoading && <Loader/>}
+			{isFetching && <Loader/>}
 			<Layout content={mainPageContent}/>
 		</React.Fragment>
-		
 	)
 }

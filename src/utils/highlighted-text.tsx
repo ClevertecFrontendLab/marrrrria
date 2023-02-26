@@ -9,14 +9,6 @@ export const HighlightedText = ({text}: HighlightedTextProps) => {
   const { searchValue } = useAppSelector(state => state.library)
   const regex = new RegExp(searchValue, 'gi');
   const parts = text.split(regex);
-
-  // if (parts.length <= 1) {
-  //   // return <React.Fragment>
-  //   //   {text}{}
-  //   //   </React.Fragment>;
-  //   return text
-  // }
-
   const matches = text.match(regex);
 
   return (
@@ -28,7 +20,7 @@ export const HighlightedText = ({text}: HighlightedTextProps) => {
           {part}
           {index !== parts.length - 1 &&
             matches?.[index] && (
-              <span style={{color: '#FF5253'}}>{matches[index]}</span>
+              <span data-test-id='highlight-matches' style={{color: '#FF5253'}}>{matches[index]}</span>
             )}
         </React.Fragment>
       ))}

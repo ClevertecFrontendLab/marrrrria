@@ -15,6 +15,7 @@ export function Header({toggleNavigation, isOpenNavigation, closeNavigation}: He
     idAllBooks: 'burger-books',
     idTerms: 'burger-terms',
     idContract: 'burger-contract',
+    prefix: 'burger-',
   }
 
   return (
@@ -35,11 +36,11 @@ export function Header({toggleNavigation, isOpenNavigation, closeNavigation}: He
                 <span className='person__name'>Привет Иван!</span>
                 <div className='person__picture'> </div>
             </div>
-        </div> 
+        </div>
         <div data-test-id='burger-navigation' className='header__burger-navigation'>
           <Navigation isOpen={isOpenNavigation} closeNavigation={closeNavigation} dataTestIds={dataTestIds}/>
         </div>
     </header>
-  
+
   )
 }

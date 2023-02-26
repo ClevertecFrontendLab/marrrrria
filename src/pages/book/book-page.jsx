@@ -37,7 +37,7 @@ const feedbackJsx = book?.comments?.map(item => <Feedback key={item.id} {...item
 
 	const buttonBook = <ButtonBook order={book?.booking?.order} dateHandedTo={book?.delivery?.dateHandedTo} view="book-book"/>
 
-	const bookWrapper = 
+	const bookWrapper =
 	<div className="wrapper book__wrapper">
 
 			<div className="book__main-information">
@@ -45,7 +45,7 @@ const feedbackJsx = book?.comments?.map(item => <Feedback key={item.id} {...item
 					<Slider data={book?.images}/>
 				</div>
 				<div>
-					<h2 className="book__title">{book?.title}</h2>
+					<h2 data-test-id='book-title' className="book__title">{book?.title}</h2>
 					<p className="book__author">{book?.authors.join(', ')}</p>
 					{buttonBook}
 				</div>
@@ -76,16 +76,16 @@ const feedbackJsx = book?.comments?.map(item => <Feedback key={item.id} {...item
 					</div>
 				</div>
 
-				<div className="additional__information"> 
+				<div className="additional__information">
 
 					<p data-test-id='button-hide-reviews' onClick={() => openFeedback(book?.comments?.length)} role="presentation" className={`additional__title additional__title-feedback ${isFeedbackOpen && book?.comments?.length ?  '' : 'book__feedback-title'}`}>
-						Отзывы 
+						Отзывы
 						<span className="feedback-count">{book?.comments?.length || 0}</span>
 						{book?.comments?.length && <span className={`ico ico_arrow-feedback ${isFeedbackOpen ? 'feedback__icon_opened' : ''}`}> </span>}
-						
+
 					</p>
 
-					<div className={`book__feedback ${isFeedbackOpen && book?.comments?.length ? '' : 'feedback_hidden'}`}> 
+					<div className={`book__feedback ${isFeedbackOpen && book?.comments?.length ? '' : 'feedback_hidden'}`}>
 						{feedbackJsx}
 					</div>
 				</div>
@@ -93,9 +93,9 @@ const feedbackJsx = book?.comments?.map(item => <Feedback key={item.id} {...item
 				<button data-test-id='button-rating' className="book__estimate-button button button__colored" type="button">Оценить книгу</button>
 
 			</div>
-		</div> 
+		</div>
 
-  const bookPageContent = 
+  const bookPageContent =
   <React.Fragment>
 		<div className="book__label">
 			<div className="wrapper">
@@ -110,13 +110,13 @@ const feedbackJsx = book?.comments?.map(item => <Feedback key={item.id} {...item
 
 
   return (
-  <section className='book-page'> 
+  <section className='book-page'>
 		{isError && <ErrorMessage message={error?.data?.error?.message}/>}
 
     <Header toggleNavigation={toggleNavigation} isOpenNavigation={isOpenNavigation}/>
 			{isLoading && <Loader/>}
 			{!isLoading && bookPageContent}
-			
+
 		<Footer />
 	</section>
 )

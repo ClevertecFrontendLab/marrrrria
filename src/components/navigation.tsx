@@ -14,13 +14,10 @@ interface NavigationProps {
     idAllBooks: string,
     idTerms: string,
     idContract: string,
+    prefix: string,
   }
-  
-}
 
-// interface Dic {
-//     [key: string]: number
-// }
+}
 
 export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationProps) {
 
@@ -35,7 +32,6 @@ export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationPro
 
     books.forEach(book => {
       book.categories.forEach(category => {
-        // categoryCount[category] ? categoryCount[category]++ : categoryCount[category] = 1
         if (categoryCount[category]) {
           categoryCount[category]+=1
         }
@@ -64,19 +60,18 @@ export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationPro
   ]
 
   const {category} = useParams()
-  const [activeItem, setActiveItem] = useState(!!category) 
+  const [activeItem, setActiveItem] = useState(!!category)
 
   const { currentBooks } = useAppSelector(state => state.library)
 
-  const items = navigationItems.map(item => 
-  <li data-test-id={item.name === 'Все книги' ? dataTestIds.idAllBooks : ''} role="presentation" onClick={closeNavigation} key={`navigation-item-${item.id}`} className='subnavigation__item'>
+  const items = navigationItems.map(item =>
+  <li  role="presentation" onClick={closeNavigation} key={`navigation-item-${item.id}`} className='subnavigation__item'>
     <NavLink to={`/books/${item.path}`}>
       {({ isActive }) => (
       <React.Fragment>
-        <span data-test-id='navigation-books' className={` ${isActive ? 'subnavigation__item_active' : undefined}`}>
+        <span data-test-id={item.name === 'Все книги' ? dataTestIds.idAllBooks : `${dataTestIds.prefix}${item.path}`} className={` ${isActive ? 'subnavigation__item_active' : undefined}`}>
           {item.name}
-        {/* </span><span className='navigation__item-count'>&nbsp; {currentBooks.length} &shy;</span> */}
-        </span><span className='navigation__item-count'>&nbsp; {categoryCount[item.name] || item.count || 0} &shy;</span>
+        </span><span data-test-id={`${dataTestIds.prefix}book-count-for-${item.path}`} className='navigation__item-count'>&nbsp; {categoryCount[item.name] || item.count || 0} &shy;</span>
       </React.Fragment>
       )}
     </NavLink>
@@ -85,7 +80,7 @@ export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationPro
   return (
     <React.Fragment>
       { isOpen && <div className='navigation__background' onClick={closeNavigation} role="presentation"/>}
-      
+
     <nav data-test-id='burger-navigation' className={`navigation navigation-bar ${isOpen? 'navigation_open' : 'navigation_hidden'}`}>
       <ul className='navigation__wrapper'>
       <li className='navigation__item'>
@@ -107,7 +102,7 @@ export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationPro
                 Договор оферты
             </NavLink>
           </li>
-      </ul> 
+      </ul>
 
       <ul className='navigation__profile-items'>
         <li className='navigation__item'>Профиль</li>

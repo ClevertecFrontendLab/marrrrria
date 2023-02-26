@@ -12,9 +12,9 @@ export function Filter() {
   }, [filterByRating, isTopFirst])
 
   return (
-    <div className='filter' onClick={() => setTopFirst(prev => !prev)} role="presentation">
+    <div data-test-id='sort-rating-button' className='filter' onClick={() => setTopFirst(prev => !prev)} role="presentation">
         <span className={`ico ${isTopFirst ? 'ico_filter-top' : 'ico_filter-bottom'}`}> </span>
         <p className='filter__text'>По рейтингу</p>
-    </div> 
+    </div>
   )
-} 
+}
