@@ -1,0 +1,75 @@
+.reg-auth {
+  
+  &__background {
+    background: $color-background-auth;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  &__title {
+    @include font($size: 3.2rem, $weight: 700, $height: 4.0rem);
+    color: $color-light;
+  }
+
+  &__input {
+    width: 416px;
+    height: 56px;
+    border: 0;
+    padding: 19px 12px;
+    color: $color-text;
+    @include font();
+    background: #F9F9FA;
+    border-radius: 4px;
+    border-bottom: 1px solid #BFC4C9;
+    
+    
+    &:first-child {
+      // margin-top: 32px;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__button {
+    text-transform: uppercase;
+    margin-top: 32px;
+  }
+
+  &__error-hint {
+    padding: 2px 12px;
+    @include font($size: 1.2rem, $height: 1.6rem, $weight: 500);
+    color: $color-text-placeholder;
+    margin-bottom: 16px;
+  }
+}
+
+.registration {
+
+  &__form {
+    background-color: $color-light;
+    border-radius: 16px;
+    padding: 48px 56px;
+    margin-top: 46px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    color: $color-text;
+    @include font($size: 2.4rem, $height: 3rem, $weight: 700);
+  }
+
+  &__steps {
+    color: $color-text;
+    @include font($size: 1.4rem, $height: 1.8rem, $weight: 600);
+    margin-bottom: 32px;
+    margin-top: 8px;
+  }
+}
+

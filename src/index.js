@@ -11,6 +11,7 @@ import { store } from './store';
 
 import './sass/style.scss'
 import './index.css';
+import { Registration } from './pages/registration/registration';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -20,7 +21,12 @@ root.render(
   <React.StrictMode>
     <HashRouter>
       <Routes>
-        <Route path='/' element={<Navigate to='/books/all'/>} />
+        {/* <Route path='/' element={<Navigate to='/books/all'/>} /> */}
+
+        <Route path='/auth' element={<Navigate to='/books/all'/>} />
+        <Route path='/registration' element={<Registration/>} />
+        <Route path='/forgot-pass' element={<Navigate to='/books/all'/>} />
+
         <Route path='/books' element={<Navigate to='/books/all'/>} />
         <Route path='/books/:category' element={<MainPage />} />
         <Route path='/rules' element={<RulesPage />} />
