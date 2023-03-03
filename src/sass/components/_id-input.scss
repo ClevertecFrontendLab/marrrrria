@@ -1,0 +1,19 @@
+.id-input__container {
+  position: relative;
+}
+
+.id-input__placeholder {
+  position: absolute;
+  top: 19px;
+  left: 12px;
+  transition: all 0.2s ease-in-out;
+  @include font();
+  color: $color-text;
+  pointer-events: none;  
+}
+
+.shifted {
+  top: 6px;
+  color: $color-text-placeholder;
+  @include font($size: 1.2rem, $height: 1.6rem, $weight: 500);
+}
