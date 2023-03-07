@@ -17,3 +17,13 @@
   color: $color-text-placeholder;
   @include font($size: 1.2rem, $height: 1.6rem, $weight: 500);
 }
+
+.id-input-icons {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+
+  >:first-child {
+    margin-right: 4px;
+  }
+}

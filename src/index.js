@@ -12,6 +12,8 @@ import { store } from './store';
 import './sass/style.scss'
 import './index.css';
 import { Registration } from './pages/registration/registration';
+import { Authorization } from './pages/authorization/authorization';
+import { ForgotPassword } from './pages/forgot-password/forgot-password';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -23,9 +25,9 @@ root.render(
       <Routes>
         {/* <Route path='/' element={<Navigate to='/books/all'/>} /> */}
 
-        <Route path='/auth' element={<Navigate to='/books/all'/>} />
+        <Route path='/auth' element={<Authorization/>} />
         <Route path='/registration' element={<Registration/>} />
-        <Route path='/forgot-pass' element={<Navigate to='/books/all'/>} />
+        <Route path='/forgot-pass' element={<ForgotPassword/>} />
 
         <Route path='/books' element={<Navigate to='/books/all'/>} />
         <Route path='/books/:category' element={<MainPage />} />

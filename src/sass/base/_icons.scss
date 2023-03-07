@@ -139,6 +139,30 @@
       height: 16px;
     }
   }
+
+  &_eye-closed {
+    background-image: url('../../img/icons/eye-password-closed.svg');
+    min-width: 24px;
+    height: 24px;
+  }
+
+  &_eye-opened {
+    background-image: url('../../img/icons/eye-password-opened.svg');
+    min-width: 24px;
+    height: 24px;
+  }
+
+  &_tick {
+    background-image: url('../../img/icons/tick.svg');
+    min-width: 24px;
+    height: 24px;
+  }
+
+  &_sign-in-arrow {
+    background-image: url('../../img/icons/sign-in-arrow.svg');
+    min-width: 24px;
+    height: 24px;
+  }
 }
 
 .ico_hidden {

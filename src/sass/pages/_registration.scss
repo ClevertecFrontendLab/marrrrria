@@ -46,6 +46,7 @@
     @include font($size: 1.2rem, $height: 1.6rem, $weight: 500);
     color: $color-text-placeholder;
     margin-bottom: 16px;
+    max-width: 416px;
   }
 }
 
@@ -70,6 +71,32 @@
     @include font($size: 1.4rem, $height: 1.8rem, $weight: 600);
     margin-bottom: 32px;
     margin-top: 8px;
+  }
+
+  &__question {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+
+    >:first-child {
+      @include font($size: 1.6rem, $height: 2.4rem);
+      color: $color-text-additional;
+      margin-right: 16px;
+    }
+    
+  }
+
+  &__sign-in-button {
+    @include font($size: 1.2rem, $height: 1.8rem, $weight: 600);
+    color: $color-text;
+    text-transform: uppercase;
+
+    display: flex;
+    align-items: center;
+
+    >:last-child {
+      margin-left: 12px;
+    }
   }
 }
 

@@ -14,9 +14,11 @@ const validatePassword = (value: string) => {
     numLetters = true
   }
 
-  const JSXError = `Пароль ${numLetters ? '/не менее 8 символов/' : 'не менее 8 символов'},   ${isBigLetter ? "/с заглавной буквой/" : "с заглавной буквой"} и ${isNumbers ? "/и цифрой/" : "и цифрой"}`
-
-  return JSXError
+  const JSXError = `Пароль ${numLetters ? '/не менее 8 символов,/' : 'не менее 8 символов,'}   ${isBigLetter ? "/с заглавной буквой/" : "с заглавной буквой"} и ${isNumbers ? "/цифрой/" : "цифрой"}`
+  if (isNumbers || isBigLetter || numLetters){
+    return JSXError
+  }
+  return true
 };
 
 const validateLogin = (value: string) => {
@@ -29,12 +31,31 @@ const validateLogin = (value: string) => {
 
   const JSXError = `Используйте для логина ${isLatinLetters ? "/латинский алфавит/" : "латинский алфавит"} и ${isNumbers ? "/цифры/" : "цифры"}`
 
-  return JSXError
+  if (isNumbers || isLatinLetters){
+    return JSXError
+  }
+  return true
 };
 
 const validateName = (value: string) => {
   const a = 'dvdffd';
-  return ''
+  return true
 }
 
-export {HighlightValidate, validatePassword, validateLogin, validateName}
+const validateEmail = (value:string) => {
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+  return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
+}
+
+const validateChangedPassword = (value: string) => {
+  const a = "ggv"
+return true
+
+}
+
+const validateEqualPassword = (value: string) => {
+  const a = "ggv"
+  return true
+}
+
+export {HighlightValidate, validatePassword, validateLogin, validateName, validateChangedPassword, validateEqualPassword}

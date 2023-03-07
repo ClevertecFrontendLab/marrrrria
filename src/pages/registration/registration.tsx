@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
+import { Link } from 'react-router-dom';
 import { IDInput } from '../../components/identification/id-input';
+import { IDQuestion } from '../../components/identification/id-question';
 import { validateLogin, validateName, validatePassword } from '../../components/identification/utils';
 
 type Inputs = {
@@ -124,15 +126,25 @@ export function Registration() {
   // };
 
   const [step, setStep] = useState<number>(1);
-  const { register, handleSubmit, formState: { errors, isValid }, watch } = useForm<FormValues>({
+  const methods = useForm<FormValues>({
     // mode: 'onTouched',
     mode: 'onChange',
-
-    reValidateMode: 'onChange',
+    // reValidateMode: 'onBlur',
   });
+  const { register, handleSubmit, formState: { errors, isValid }, watch, trigger } = methods
+  // const { register, handleSubmit, formState: { errors, isValid }, watch, trigger } = useForm<FormValues>({
+  //   // mode: 'onTouched',
+  //   mode: 'onChange',
+  //   // reValidateMode: 'onBlur',
+  // });
+  console.log(watch("phone"))
+  type InputEnum =  "login" | "password" | "name" | "surname" | "phone" | "email"
 
-  const onNextStep = () => {
-    setStep(step + 1);
+  const onNextStep = async (name1:InputEnum, name2:InputEnum) => {
+    const isCorrect = await trigger([name1,name2])
+    if(isCorrect) {
+      setStep(step + 1);
+    }
   };
 
   const onPrevStep = () => {
@@ -149,6 +161,8 @@ export function Registration() {
   return (
     <div className="reg-auth__background">
     <h2 className='reg-auth__title'>Cleverland</h2>
+
+    <FormProvider {...methods}>
     <form onSubmit={handleSubmit(onSubmit)} className="registration__form">
 
     <p className='registration__title'>Регистрация</p>
@@ -156,20 +170,25 @@ export function Registration() {
 
       {step === 1 && (
         <>
-          <IDInput placeholder="Придумайте логин для входа" type="text" options={register} watch={watch} inputName="login" validate={validateLogin} errorMessage={errors.login?.message || "Используйте для логина латинский алфавит и цифры"}/>
+          <IDInput placeholder="Придумайте логин для входа" type="text" isError={!!errors.login} inputName="login" validate={validateLogin} errorMessage={errors.login?.message || "Используйте для логина латинский алфавит и цифры"}/>
 
-          <IDInput placeholder='Пароль' type="password" options={register} watch={watch} inputName="password" validate={validatePassword} errorMessage={errors.password?.message || 'Пароль не менее 8 символов, с заглавной буквой и цифрой'}/>
+          <IDInput placeholder='Пароль' type="password" isError={!!errors.password} inputName="password" validate={validatePassword} errorMessage={errors.password?.message || 'Пароль не менее 8 символов, с заглавной буквой и цифрой'}/>
+          {/* <IDInput placeholder="Придумайте логин для входа" type="text" options={register} watch={watch} isError={!!errors.login} inputName="login" validate={validateLogin} errorMessage={errors.login?.message || "Используйте для логина латинский алфавит и цифры"} trigger={trigger}/>
+
+          <IDInput placeholder='Пароль' type="password" options={register} watch={watch} isError={!!errors.password} inputName="password" validate={validatePassword} errorMessage={errors.password?.message || 'Пароль не менее 8 символов, с заглавной буквой и цифрой'} trigger={trigger}/> */}
             
           {/* <input placeholder="Придумайте логин для входа" className='reg-auth__input' type="text" {...register("login", { required: true, validate: validateLogin })} />
              <input placeholder="" className='reg-auth__input' type="password" {...register("password", { required: true, validate: validatePassword })} /> */}
         
-          <button className="button button__colored reg-auth__button" type="button" onClick={onNextStep}>Следующий шаг</button>
+          <button className="button button__colored reg-auth__button" type="button" onClick={() => onNextStep("login", "password")}>Следующий шаг</button>
         </>
       )}
       {step === 2 && (
         <>
-          <IDInput placeholder='Имя' type="text" options={register} watch={watch} inputName="name" validate={validateName} errorMessage={errors.name?.message || ""} /> 
-          <IDInput placeholder='Фамилия' type="text" options={register} watch={watch} inputName="surname" validate={validateName} errorMessage={errors.surname?.message || ""} />
+          <IDInput placeholder='Имя' type="text" isError={!!errors.name} inputName="name" validate={validateName} errorMessage={errors.name?.message || ""} /> 
+          <IDInput placeholder='Фамилия' type="text" isError={!!errors.surname} inputName="surname" validate={validateName} errorMessage={errors.surname?.message || ""}/>
+          {/* <IDInput placeholder='Имя' type="text" options={register} watch={watch} isError={!!errors.name} inputName="name" validate={validateName} errorMessage={errors.name?.message || ""}  trigger={trigger}/> 
+          <IDInput placeholder='Фамилия' type="text" options={register} watch={watch} isError={!!errors.surname} inputName="surname" validate={validateName} errorMessage={errors.surname?.message || ""} trigger={trigger} /> */}
 
           {/* Нужны ли здесь валидаторы */}
 
@@ -178,23 +197,28 @@ export function Registration() {
           {/* <input placeholder="Фамилия" className='reg-auth__input' type="text" {...register("surname", { required: true })} /> */}
           {/* <span className='reg-auth__error-hint'> </span> */}
 
-          <button className="button button__colored reg-auth__button" type="button" onClick={onNextStep}>Next</button>
+          <button className="button button__colored reg-auth__button" type="button" onClick={() => onNextStep("name", "surname")}> Последний шаг </button>
         </>
       )}
       {step === 3 && (
         <>
-          <IDInput placeholder='Номер телефона' type="tel" options={register} watch={watch} inputName="phone" validate={validateName} errorMessage={errors.phone?.message || ""} />
-          <IDInput placeholder='E-mail' type="email" options={register} watch={watch} inputName="email" validate={validateName} errorMessage={errors.email?.message || ""} /> 
+          <IDInput placeholder='Номер телефона' type="tel" isError={!!errors.phone} inputName="phone" validate={validateName} errorMessage={errors.phone?.message || ""}/>
+          <IDInput placeholder='E-mail' type="email" isError={!!errors.email} inputName="email" validate={validateName} errorMessage={errors.email?.message || ""}/> 
+          {/* <IDInput placeholder='Номер телефона' type="tel" options={register} watch={watch} isError={!!errors.phone} inputName="phone" validate={validateName} errorMessage={errors.phone?.message || ""} trigger={trigger} />
+          <IDInput placeholder='E-mail' type="email" options={register} watch={watch} isError={!!errors.email} inputName="email" validate={validateName} errorMessage={errors.email?.message || ""} trigger={trigger} />  */}
           
           {/* <input placeholder="Номер телефона" className='reg-auth__input' type="tel" {...register("phone", { required: true })} /> */}
           {/* <span className='reg-auth__error-hint'> </span> */}
           {/* <input placeholder="E-mail" className='reg-auth__input' type="email" {...register("email", { required: true })} /> */}
           {/* <span className='reg-auth__error-hint'> </span> */}
 
-          <button className="button button__colored reg-auth__button" type="submit">Submit</button>
+          <button className="button button__colored reg-auth__button" type="submit"> Зарегистрироваться </button>
         </>
       )}
+
+      <IDQuestion path="/auth" question="Есть учётная запись?" text="Войти"/>
     </form>
+    </FormProvider>
     </div>
   );
 
