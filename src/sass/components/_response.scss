@@ -1,0 +1,31 @@
+.response {
+  &__container {
+    background-color: $color-light;
+    border-radius: 16px;
+    padding: 48px 95px;
+    margin-top: 159px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__title {
+    color: $color-text;
+    @include font($size: 2.4rem, $height: 3rem, $weight: 700);
+    margin-bottom: 32px;
+  }
+
+  &__message {
+    // padding: 2px 12px;
+    @include font($size: 1.6rem, $height: 2.4rem, $weight: 400);
+    color: $color-text;
+    max-width: 416px;
+  }
+
+  &__button {
+    margin-top: 32px;
+    text-transform: uppercase;
+    padding: 14px 150px;
+    border-radius: 30px;
+  }
+}

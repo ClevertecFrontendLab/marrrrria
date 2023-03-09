@@ -4,7 +4,7 @@ import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { Link } from 'react-router-dom';
 import { IDInput } from '../../components/identification/id-input';
 import { IDQuestion } from '../../components/identification/id-question';
-import { validateLogin, validateName, validatePassword } from '../../components/identification/utils';
+import { validateEmail, validateLogin, validateName, validatePassword, validatePhone } from '../../components/identification/utils';
 
 type Inputs = {
   login: string,
@@ -130,6 +130,14 @@ export function Registration() {
     // mode: 'onTouched',
     mode: 'onChange',
     // reValidateMode: 'onBlur',
+    defaultValues : {
+      login:'',
+      password:'',
+      name:'',
+      surname:'',
+      phone:'',
+      email:''
+    }
   });
   const { register, handleSubmit, formState: { errors, isValid }, watch, trigger } = methods
   // const { register, handleSubmit, formState: { errors, isValid }, watch, trigger } = useForm<FormValues>({
@@ -137,7 +145,6 @@ export function Registration() {
   //   mode: 'onChange',
   //   // reValidateMode: 'onBlur',
   // });
-  console.log(watch("phone"))
   type InputEnum =  "login" | "password" | "name" | "surname" | "phone" | "email"
 
   const onNextStep = async (name1:InputEnum, name2:InputEnum) => {
@@ -164,9 +171,12 @@ export function Registration() {
 
     <FormProvider {...methods}>
     <form onSubmit={handleSubmit(onSubmit)} className="registration__form">
+      <div className='registration__title-block'>
+        <p className='registration__title'>Регистрация</p>
+        <span className='registration__steps'>{step} шаг из 3</span>
+      </div>
 
-    <p className='registration__title'>Регистрация</p>
-    <span className='registration__steps'>{step} шаг из 3</span>
+    
 
       {step === 1 && (
         <>
@@ -202,8 +212,8 @@ export function Registration() {
       )}
       {step === 3 && (
         <>
-          <IDInput placeholder='Номер телефона' type="tel" isError={!!errors.phone} inputName="phone" validate={validateName} errorMessage={errors.phone?.message || ""}/>
-          <IDInput placeholder='E-mail' type="email" isError={!!errors.email} inputName="email" validate={validateName} errorMessage={errors.email?.message || ""}/> 
+          <IDInput placeholder='Номер телефона' type="tel" isError={!!errors.phone} inputName="phone" validate={validatePhone} errorMessage={errors.phone?.message || ""}/>
+          <IDInput placeholder='E-mail' type="text" isError={!!errors.email} inputName="email" validate={validateEmail} errorMessage={errors.email?.message || ""}/> 
           {/* <IDInput placeholder='Номер телефона' type="tel" options={register} watch={watch} isError={!!errors.phone} inputName="phone" validate={validateName} errorMessage={errors.phone?.message || ""} trigger={trigger} />
           <IDInput placeholder='E-mail' type="email" options={register} watch={watch} isError={!!errors.email} inputName="email" validate={validateName} errorMessage={errors.email?.message || ""} trigger={trigger} />  */}
           

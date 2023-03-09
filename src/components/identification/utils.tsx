@@ -1,3 +1,5 @@
+
+
 function HighlightValidate (text:string) {
   return text.split('/').map((item, index) =>
     index%2 ? <span key={item} style={{color:'red'}}> {item} </span> : item
@@ -5,6 +7,7 @@ function HighlightValidate (text:string) {
 }
 
 const validatePassword = (value: string) => {
+  console.log('Validate password')
   let isNumbers = !/\d+/.test(value)
   let isBigLetter = !/[A-Z]+/.test(value)
   let numLetters = value.split("").length < 8
@@ -44,7 +47,10 @@ const validateName = (value: string) => {
 
 const validateEmail = (value:string) => {
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-  return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
+  if (emailRegex.test(value)) {
+    return true
+  }
+  return "Введите корректный e-mail"
 }
 
 const validateChangedPassword = (value: string) => {
@@ -53,9 +59,20 @@ return true
 
 }
 
-const validateEqualPassword = (value: string) => {
-  const a = "ggv"
-  return true
+const validateEqualPassword = (value: string, equalValue:string) => {
+  console.log('validate Equal')
+  console.log(equalValue)
+  const a = 123
+  return value !== equalValue ? "Пароли не совпадают" : true;
 }
 
-export {HighlightValidate, validatePassword, validateLogin, validateName, validateChangedPassword, validateEqualPassword}
+
+const validatePhone = (value: string) => {
+  const phoneRegex = /^\+375 \((29|33|25|44)\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/;
+  if (phoneRegex.test(value)) {
+    return true
+  }
+  return "В формате +375 (xx) xxx-xx-xx"
+}
+
+export {HighlightValidate, validatePassword, validateLogin, validateName, validateChangedPassword, validateEqualPassword, validateEmail, validatePhone}
