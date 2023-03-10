@@ -9,7 +9,6 @@ interface LibraryState {
   currentCategory : string,
   isSortedByTop: boolean,
   searchValue: string,
-  jwt: string,
 }
 
 const initialState: LibraryState = {
@@ -19,7 +18,6 @@ const initialState: LibraryState = {
   currentCategory: 'Все книги',
   isSortedByTop: true,
   searchValue: '',
-  jwt: localStorage.getItem('JWT') || '',
 }
 
 export const librarySlice = createSlice({

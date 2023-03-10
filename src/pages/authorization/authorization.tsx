@@ -44,14 +44,14 @@ export function Authorization() {
 
   // console.log(error)
   
+  if(dataFromServer?.jwt) {localStorage.setItem('JWT', dataFromServer.jwt)}
   
-  console.log(dataFromServer)
   return (
     <div className="reg-auth__background">
       <h2 className='reg-auth__title'>Cleverland</h2>
 
       <FormProvider {...methods}>
-        {dataFromServer && localStorage.setItem('JWT', dataFromServer.jwt)}
+        {/* {dataFromServer && localStorage.setItem('JWT', dataFromServer.jwt)} */}
 
       {(!error || (error as any)?.status === 400) &&
       <form onSubmit={handleSubmit(onSubmit)} className="registration__form">
