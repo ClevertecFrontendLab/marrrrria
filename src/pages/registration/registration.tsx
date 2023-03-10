@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { IDInput } from '../../components/identification/id-input';
 import { IDQuestion } from '../../components/identification/id-question';
 import { validateEmail, validateLogin, validateName, validatePassword, validatePhone } from '../../components/identification/utils';
+import { useRegisterUserMutation } from '../../store/library/library.api';
+import { ResponseWindow } from '../../components/identification/response-window';
 
 type Inputs = {
   login: string,
@@ -139,7 +141,7 @@ export function Registration() {
       email:''
     }
   });
-  const { register, handleSubmit, formState: { errors, isValid }, watch, trigger } = methods
+  const { handleSubmit, formState: { errors, isValid }, watch, trigger } = methods
   // const { register, handleSubmit, formState: { errors, isValid }, watch, trigger } = useForm<FormValues>({
   //   // mode: 'onTouched',
   //   mode: 'onChange',
@@ -157,14 +159,25 @@ export function Registration() {
   const onPrevStep = () => {
     setStep(step - 1);
   };
+  const [registerUser, { isLoading, error, data }] = useRegisterUserMutation();
 
   const onSubmit = (data: FormValues) => {
     // Send data to server
-    console.log(data);
+    // console.log(data);
+    const body = {
+      email: data.email,
+      username: data.login,
+      password: data.password,
+      firstName: data.name,
+      lastName: data.surname,
+      phone: data.phone,
+    }
+
+    registerUser(body)
   };
 
-  console.log(errors)
-
+  console.log(error, data)
+  // (error as any)?.status !== 400
   return (
     <div className="reg-auth__background">
     <h2 className='reg-auth__title'>Cleverland</h2>
@@ -229,8 +242,15 @@ export function Registration() {
       <IDQuestion path="/auth" question="Есть учётная запись?" text="Войти"/>
     </form>
     </FormProvider>
+
+    {(error as any)?.status === 400 && <ResponseWindow title='Данные не сохранились' message='Такой логин или e-mail уже записан в системе. Попробуйте зарегистрироваться по другому логину или e-mail.' buttonText='назад к регистрации ' path="/registration"/>}
+
+    {!!error && (error as any)?.status !== 400 && <ResponseWindow title='Данные не сохранились' message='Что-то пошло не так и ваша регистрация не завершилась. Попробуйте ещё раз' buttonText='повторить' path="/registration"/>} 
+
+    {data?.user && <ResponseWindow title='Регистрация успешна' message='Регистрация прошла успешно. Зайдите в личный кабинет, используя свои логин и пароль' buttonText='вход' path="/auth"/>}
+
     </div>
-  );
+  ); 
 
   
 }

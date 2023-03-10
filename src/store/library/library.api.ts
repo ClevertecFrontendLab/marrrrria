@@ -32,8 +32,15 @@ export const libraryApi = createApi({
         method: 'POST',
         body,
       })
-    })
+    }),
+    registerUser: build.mutation ({
+      query: (body) => ({
+        url: 'api/auth/local/register',
+        method: 'POST',
+        body,
+      })
+    }),
   })
 })
 
-export const {useGetBooksQuery, useGetBookQuery, useGetCategoriesQuery, useSignInMutation} = libraryApi
+export const {useGetBooksQuery, useGetBookQuery, useGetCategoriesQuery, useSignInMutation, useRegisterUserMutation} = libraryApi

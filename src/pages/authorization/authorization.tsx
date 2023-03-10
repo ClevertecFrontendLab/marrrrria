@@ -25,26 +25,33 @@ export function Authorization() {
     }
   });
 
-  const [signIn, { isLoading, error }] = useSignInMutation();
+  const [signIn, { isLoading, error, data: dataFromServer }] = useSignInMutation();
 
   const { register, handleSubmit, formState: { errors, isValid }, watch, trigger } = methods;
 
-  const onSubmit = (data: SignInValues) => {
+  const onSubmit = async (data: SignInValues) => {
     // Send data to server
-    console.log(data);
-    const asd = signIn(data)
-    console.log(error)
-    console.log(asd)
+    // console.log(data);
+    const body = {
+      identifier: data.login,
+      password: data.password,
+    }
+    signIn(body)
+    // .then(data => localStorage.setItem('JWT', data.jwt))
 
-    
+    // if(response){localStorage.setItem('JWT', dataFromServer.jwt)}
   };
 
-  console.log(error)
+  // console.log(error)
+  
+  
+  console.log(dataFromServer)
   return (
     <div className="reg-auth__background">
       <h2 className='reg-auth__title'>Cleverland</h2>
 
       <FormProvider {...methods}>
+        {dataFromServer && localStorage.setItem('JWT', dataFromServer.jwt)}
 
       {(!error || (error as any)?.status === 400) &&
       <form onSubmit={handleSubmit(onSubmit)} className="registration__form">
@@ -67,7 +74,7 @@ export function Authorization() {
       </form>}
 
       {!!error && (error as any)?.status !== 400 && <ResponseWindow title='Вход не выполнен' message='Что-то пошло не так. Попробуйте ещё раз' buttonText='повторить' path="/auth"/>}
-      {/* {!!error && (error as any)?.status === 400 && <ResponseWindow title='Вход не выполнен' message='Что-то пошло не так. Попробуйте ещё раз' buttonText='повторить' path="/auth"/>} */}
+      {!!error && (error as any)?.status === 400 && <ResponseWindow title='Вход не выполнен' message='Что-то пошло не так. Попробуйте ещё раз' buttonText='повторить' path="/auth"/>}
       
       </FormProvider>
     </div>

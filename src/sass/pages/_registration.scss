@@ -39,6 +39,9 @@
   &__button {
     text-transform: uppercase;
     margin-top: 32px;
+    @include font($size: 1.6rem, $height: 150%, $weight: 600);
+    padding: 14px 0;
+    border-radius: 30px;
   }
 
   &__error-hint {
