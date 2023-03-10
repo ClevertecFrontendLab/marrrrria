@@ -1,9 +1,12 @@
 import { useForm, FormProvider } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { IDInput } from '../../components/identification/id-input';
 import { IDQuestion } from '../../components/identification/id-question';
 import { useSignInMutation } from '../../store/library/library.api';
 import { ResponseWindow } from '../../components/identification/response-window';
+import { useActions } from '../../hooks/actions';
+import { Loader } from '../../components/loader';
 
 
 
@@ -25,9 +28,13 @@ export function Authorization() {
     }
   });
 
+	const { setIsAuthorized } = useActions()
+
   const [signIn, { isLoading, error, data: dataFromServer }] = useSignInMutation();
 
   const { register, handleSubmit, formState: { errors, isValid }, watch, trigger } = methods;
+
+  const [logInData, setLogInData] = useState({})
 
   const onSubmit = async (data: SignInValues) => {
     // Send data to server
@@ -36,6 +43,7 @@ export function Authorization() {
       identifier: data.login,
       password: data.password,
     }
+    setLogInData(body)
     signIn(body)
     // .then(data => localStorage.setItem('JWT', data.jwt))
 
@@ -44,9 +52,22 @@ export function Authorization() {
 
   // console.log(error)
   
-  if(dataFromServer?.jwt) {localStorage.setItem('JWT', dataFromServer.jwt)}
-  
+  useEffect(() => {
+    if (dataFromServer?.jwt) {
+      localStorage.setItem('JWT', dataFromServer.jwt)
+      setIsAuthorized(true)
+    }
+  }, [dataFromServer?.jwt, setIsAuthorized]);
+
+  // if(dataFromServer?.jwt) {
+  //   localStorage.setItem('JWT', dataFromServer.jwt)
+  //   setIsAuthorized(true)
+  // }
+
   return (
+    <>
+    {/* {localStorage.getItem('JWT') && <Navigate to="/"/>} */}
+    {isLoading && <Loader/>}
     <div className="reg-auth__background">
       <h2 className='reg-auth__title'>Cleverland</h2>
 
@@ -73,10 +94,12 @@ export function Authorization() {
 
       </form>}
 
-      {!!error && (error as any)?.status !== 400 && <ResponseWindow title='Вход не выполнен' message='Что-то пошло не так. Попробуйте ещё раз' buttonText='повторить' path="/auth"/>}
-      {!!error && (error as any)?.status === 400 && <ResponseWindow title='Вход не выполнен' message='Что-то пошло не так. Попробуйте ещё раз' buttonText='повторить' path="/auth"/>}
+      {!!error && (error as any)?.status !== 400 && <ResponseWindow title='Вход не выполнен' message='Что-то пошло не так. Попробуйте ещё раз' buttonText='повторить' handler={() => signIn(logInData)}/>}
+      {/* {!!error && (error as any)?.status === 400 && <ResponseWindow title='Вход не выполнен' message='Что-то пошло не так. Попробуйте ещё раз' buttonText='повторить' handler={() => signIn(logInData)}/>} */}
       
       </FormProvider>
     </div>
+
+    </>
   )
 }

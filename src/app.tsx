@@ -1,30 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
-
-import { BookPage } from './pages/book';
-import { ContractPage } from './pages/contract/contract-page';
-import { MainPage } from './pages/main';
+import { HashRouter, Routes, Navigate, Route } from 'react-router-dom';
+import { MainPage } from './pages/main/main-page';
 import { RulesPage } from './pages/rules/rules-page';
-import { store } from './store';
-
-import './sass/style.scss'
-import './index.css';
-import { Registration } from './pages/registration/registration';
+import { ContractPage } from './pages/contract/contract-page';
+import { BookPage } from './pages/book/book-page';
 import { Authorization } from './pages/authorization/authorization';
+import { Registration } from './pages/registration/registration';
 import { ForgotPassword } from './pages/forgot-password/forgot-password';
-import { App } from './app';
+import { useAppSelector } from './hooks/redux';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  // eslint-disable-next-line react/jsx-filename-extension
-  <Provider store={store}>
-  <React.StrictMode>
-    {/* <HashRouter>
+export function App() {
+
+  const { isAuthorized } = useAppSelector(state => state.library)
+
+  return (
+    <HashRouter>
       <Routes>
         {
-        localStorage.getItem('JWT') && 
+        isAuthorized && 
         <>
         <Route path='/' element={<Navigate to='/books/all'/>} />
         <Route path='/auth' element={<Navigate to='/'/>} />
@@ -39,7 +31,7 @@ root.render(
         </>
         }
         {
-        !localStorage.getItem('JWT') &&
+        !isAuthorized &&
         <>
         <Route path='/' element={<Navigate to='auth'/>} />
         <Route path='/auth' element={<Authorization/>} />
@@ -54,8 +46,6 @@ root.render(
         </>
         }
       </Routes>
-    </HashRouter> */}
-    <App/>
-  </React.StrictMode>
-  </Provider>
-);
+    </HashRouter>
+  )
+}

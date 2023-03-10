@@ -9,6 +9,7 @@ interface LibraryState {
   currentCategory : string,
   isSortedByTop: boolean,
   searchValue: string,
+  isAuthorized: boolean,
 }
 
 const initialState: LibraryState = {
@@ -18,6 +19,7 @@ const initialState: LibraryState = {
   currentCategory: 'Все книги',
   isSortedByTop: true,
   searchValue: '',
+  isAuthorized: !!localStorage.getItem("JWT"),
 }
 
 export const librarySlice = createSlice({
@@ -61,6 +63,9 @@ export const librarySlice = createSlice({
     },
     filterByRating(state, action: PayloadAction<boolean>) {
       return {...state, isSortedByTop:action.payload}
+    },
+    setIsAuthorized(state, action: PayloadAction<boolean>) {
+      return {...state, isAuthorized:action.payload}
     }
   }
 })
