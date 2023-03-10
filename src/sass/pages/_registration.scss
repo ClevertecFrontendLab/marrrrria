@@ -13,6 +13,10 @@
   &__title {
     @include font($size: 3.2rem, $weight: 700, $height: 4.0rem);
     color: $color-light;
+
+    @include media-mobile {
+      @include font($size: 1.8rem, $height: 2.8rem, $weight: 700)
+    }
   }
 
   &__input {
@@ -25,6 +29,13 @@
     background: #F9F9FA;
     border-radius: 4px;
     border-bottom: 1px solid #BFC4C9;
+
+    @include media-tablet-small {
+      width: 300px;
+    }
+    @include media-mobile {
+      width: 256px;
+    }
     
     
     &:first-child {
@@ -40,8 +51,15 @@
     text-transform: uppercase;
     margin-top: 32px;
     @include font($size: 1.6rem, $height: 150%, $weight: 600);
-    padding: 14px 0;
+    padding: 14px 0; 
     border-radius: 30px;
+
+    @include media-tablet-small {
+      padding: 11px 0;
+    }
+    @include media-mobile {
+      @include font($size: 1.2rem, $height: 1.8rem, $weight: 600);
+    }
   }
 
   &__error-hint {
@@ -50,6 +68,13 @@
     color: $color-text-placeholder;
     margin-bottom: 16px;
     max-width: 416px;
+
+    @include media-tablet-small {
+      max-width: 300px;
+    }
+    @include media-mobile {
+      max-width: 256px;
+    }
   }
 }
 
@@ -62,11 +87,27 @@
     margin-top: 46px;
     display: flex;
     flex-direction: column;
+
+    @include media-tablet-small {
+      padding: 30px 35px;
+    }
+
+    @include media-mobile {
+      padding: 24px 16px;
+      margin-top: 12px;
+    }
   }
 
   &__title {
     color: $color-text;
     @include font($size: 2.4rem, $height: 3rem, $weight: 700);
+
+    @include media-tablet-small {
+      max-width: 300px;
+    }
+    @include media-mobile {
+      max-width: 256px;
+    }
   }
 
   &__title-block {
@@ -85,10 +126,22 @@
     margin-top: 16px;
     max-width: 416px;
 
+    @include media-tablet-small {
+      max-width: 300px;
+      flex-wrap: wrap;
+    }
+    @include media-mobile {
+      max-width: 256px;
+    }
+
     >:first-child {
       @include font($size: 1.6rem, $height: 2.4rem);
       color: $color-text-additional;
       margin-right: 16px;
+
+      @include media-mobile {
+        @include font($size: 1.5rem, $height: 2.0rem)
+      }
     }
     
   }

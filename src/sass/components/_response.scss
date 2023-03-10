@@ -7,20 +7,35 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    @include media-tablet-small {
+      padding: 28px 25px;
+    }
+    @include media-mobile {
+      padding: 42px 16px;
+    }
   }
 
   &__title {
     color: $color-text;
     @include font($size: 2.4rem, $height: 3rem, $weight: 700);
     margin-bottom: 32px;
+
+    @include media-tablet-small {
+      @include font($size: 1.8rem, $height: 2.8rem, $weight: 700);
+    }
   }
 
   &__message {
-    // padding: 2px 12px;
     @include font($size: 1.6rem, $height: 2.4rem, $weight: 400);
     color: $color-text;
     max-width: 416px;
     text-align: center;
+
+    @include media-tablet-small {
+      @include font($size: 1.5rem, $height: 2.0rem);
+      max-width: 256px;
+    }
   }
 
   &__button {
@@ -30,5 +45,11 @@
     width: 410px;
     border-radius: 30px;
     @include font($size: 1.6rem, $height: 150%, $weight: 600);
+
+    @include media-tablet-small {
+      @include font($size: 1.2rem, $height: 1.8rem, $weight: 600);
+      padding: 11px 0;
+      width: 256px;
+    }
   }
 }

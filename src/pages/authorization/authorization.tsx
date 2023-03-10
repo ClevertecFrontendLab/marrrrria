@@ -1,5 +1,5 @@
 import { useForm, FormProvider } from 'react-hook-form';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IDInput } from '../../components/identification/id-input';
 import { IDQuestion } from '../../components/identification/id-question';
@@ -8,20 +8,15 @@ import { ResponseWindow } from '../../components/identification/response-window'
 import { useActions } from '../../hooks/actions';
 import { Loader } from '../../components/loader';
 
-
-
 interface SignInValues {
   login: string;
   password: string;
 }
 
-
 export function Authorization() {
 
   const methods = useForm<SignInValues>({
-    // mode: 'onTouched',
     mode: 'onChange',
-    // reValidateMode: 'onBlur',
     defaultValues : {
       login:'',
       password:'',
@@ -32,25 +27,19 @@ export function Authorization() {
 
   const [signIn, { isLoading, error, data: dataFromServer }] = useSignInMutation();
 
-  const { register, handleSubmit, formState: { errors, isValid }, watch, trigger } = methods;
+  const { handleSubmit, formState: { errors }, watch, trigger } = methods;
 
   const [logInData, setLogInData] = useState({})
 
   const onSubmit = async (data: SignInValues) => {
-    // Send data to server
-    // console.log(data);
     const body = {
       identifier: data.login,
       password: data.password,
     }
+
     setLogInData(body)
     signIn(body)
-    // .then(data => localStorage.setItem('JWT', data.jwt))
-
-    // if(response){localStorage.setItem('JWT', dataFromServer.jwt)}
   };
-
-  // console.log(error)
   
   useEffect(() => {
     if (dataFromServer?.jwt) {
@@ -59,20 +48,13 @@ export function Authorization() {
     }
   }, [dataFromServer?.jwt, setIsAuthorized]);
 
-  // if(dataFromServer?.jwt) {
-  //   localStorage.setItem('JWT', dataFromServer.jwt)
-  //   setIsAuthorized(true)
-  // }
-
   return (
     <>
-    {/* {localStorage.getItem('JWT') && <Navigate to="/"/>} */}
     {isLoading && <Loader/>}
     <div className="reg-auth__background">
       <h2 className='reg-auth__title'>Cleverland</h2>
 
       <FormProvider {...methods}>
-        {/* {dataFromServer && localStorage.setItem('JWT', dataFromServer.jwt)} */}
 
       {(!error || (error as any)?.status === 400) &&
       <form onSubmit={handleSubmit(onSubmit)} className="registration__form">
@@ -95,7 +77,6 @@ export function Authorization() {
       </form>}
 
       {!!error && (error as any)?.status !== 400 && <ResponseWindow title='Вход не выполнен' message='Что-то пошло не так. Попробуйте ещё раз' buttonText='повторить' handler={() => signIn(logInData)}/>}
-      {/* {!!error && (error as any)?.status === 400 && <ResponseWindow title='Вход не выполнен' message='Что-то пошло не так. Попробуйте ещё раз' buttonText='повторить' handler={() => signIn(logInData)}/>} */}
       
       </FormProvider>
     </div>

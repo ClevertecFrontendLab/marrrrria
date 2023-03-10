@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { useForm, FormProvider } from "react-hook-form";
 import { IDInput } from '../../components/identification/id-input';
 import { IDQuestion } from '../../components/identification/id-question';
 import { validateEmail, validateLogin, validateName, validatePassword, validatePhone } from '../../components/identification/utils';

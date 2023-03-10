@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useForm, FormProvider } from 'react-hook-form';
 import { IDInput } from "../../components/identification/id-input";
 import { IDQuestion } from '../../components/identification/id-question';
-import { validateChangedPassword, validateEmail, validateEqualPassword, validatePassword } from '../../components/identification/utils';
+import { validateEmail, validateEqualPassword, validatePassword } from '../../components/identification/utils';
 import { useResetPasswordMutation, useSendEmailMutation } from '../../store/library/library.api';
 import { ResponseWindow } from '../../components/identification/response-window';
 import { Loader } from '../../components/loader';
@@ -18,7 +18,6 @@ export function ForgotPassword() {
 
   const location = useLocation();
   const code = new URLSearchParams(location.search).get("code");
-  // const validateEqualPasswordMemo = useMemo(() => validateEqualPassword, []);
 
   const methods = useForm({
     mode: 'onChange',
@@ -30,7 +29,7 @@ export function ForgotPassword() {
   });
 
   const [passwordsData, setPasswordsData] = useState({})
-  const { register, handleSubmit, formState: { errors, isValid }, watch, trigger } = methods
+  const { handleSubmit, formState: { errors }, watch } = methods
   const [ sendEmail, { isLoading:isLoadingEmail, error: errorEmail, data: dataEmail } ] = useSendEmailMutation()
   const [ resetPassword, { isLoading:isLoadingPasswords, error: errorPasswords, data: dataPasswords } ] = useResetPasswordMutation()
 
@@ -91,7 +90,6 @@ export function ForgotPassword() {
       </div>
 
         <IDInput placeholder="Новый пароль" type="password" isError={!!errors.password} inputName="password" validate={(value) => validatePassword(value)} errorMessage={errors.password?.message as string || 'Пароль не менее 8 символов, с заглавной буквой и цифрой'}/>
-        {/* <IDInput placeholder="Новый пароль" type="password" isError={!!errors.password} inputName="password" validate={(value) => validatePassword(value) } errorMessage={errors.password?.message as string || 'Пароль не менее 8 символов, с заглавной буквой и цифрой'}/> */}
         <IDInput placeholder="Повторите пароль" type="password" isError={!!errors.repeatPassword} inputName="repeatPassword" validate={(value) => validateEqualPassword(value, watch("password"))} errorMessage={errors.repeatPassword?.message as string || ''}/>
 
         <button className="button button__colored reg-auth__button" type="submit">Сохранить изменения</button>
