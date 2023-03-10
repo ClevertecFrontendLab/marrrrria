@@ -66,6 +66,10 @@ export const librarySlice = createSlice({
     },
     setIsAuthorized(state, action: PayloadAction<boolean>) {
       return {...state, isAuthorized:action.payload}
+    },
+    logOut(state, action: PayloadAction<undefined>) {
+      localStorage.setItem("JWT", "");
+      return {...state, isAuthorized:false}
     }
   }
 })
