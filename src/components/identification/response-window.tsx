@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 interface ResponseWindowProps {
   title: string,
   message: string,
-  buttonText: string,
+  buttonText?: string,
   path?: string,
   handler?: () => void,
 }
 
-export function ResponseWindow({title, message, buttonText, path="", handler}: ResponseWindowProps) {
+export function ResponseWindow({title, message, buttonText="", path="", handler}: ResponseWindowProps) {
 
   const button = <>
     {path && <Link to={path}><button className="button button__colored response__button" type="button">{buttonText}</button></Link>}

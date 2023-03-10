@@ -49,7 +49,21 @@ export const libraryApi = createApi({
         body,
       })
     }),
+    sendEmail: build.mutation ({
+      query: (body) => ({
+        url: 'api/auth/forgot-password',
+        method: 'POST',
+        body,
+      })
+    }),
+    resetPassword: build.mutation ({
+      query: (body) => ({
+        url: 'api/auth/reset-password',
+        method: 'POST',
+        body,
+      })
+    }),
   })
 })
 
-export const {useGetBooksQuery, useGetBookQuery, useGetCategoriesQuery, useSignInMutation, useRegisterUserMutation} = libraryApi
+export const {useGetBooksQuery, useGetBookQuery, useGetCategoriesQuery, useSignInMutation, useRegisterUserMutation, useSendEmailMutation, useResetPasswordMutation} = libraryApi
