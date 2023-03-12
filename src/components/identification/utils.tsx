@@ -7,7 +7,6 @@ function HighlightValidate (text:string) {
 }
 
 const validatePassword = (value: string) => {
-  console.log('Validate password')
   let isNumbers = !/\d+/.test(value)
   let isBigLetter = !/[A-Z]+/.test(value)
   let numLetters = value.split("").length < 8
@@ -60,8 +59,6 @@ return true
 }
 
 const validateEqualPassword = (value: string, equalValue:string) => {
-  console.log('validate Equal')
-  console.log(equalValue)
   const a = 123
   return value !== equalValue ? "Пароли не совпадают" : true;
 }

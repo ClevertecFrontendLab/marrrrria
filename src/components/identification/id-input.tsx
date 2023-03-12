@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
-import { useFormContext, Controller } from "react-hook-form";
+import { useFormContext, Controller } from 'react-hook-form';
 import MaskedInput from 'react-text-mask'
-import { HighlightValidate } from "./utils";
+import { HighlightValidate } from './utils';
 import { PasswordIcons } from './password-icons';
 
 type InputEnum =  "login" | "password" | "name" | "surname" | "phone" | "email" | "repeatPassword"
@@ -22,7 +22,7 @@ interface IDInputProps {
   validate: (value:string) => string | boolean,
   isError: boolean,
   errorMessage: string,
-} 
+}
 
 export function IDInput({placeholder, type, inputName, validate, isError, errorMessage}: IDInputProps) {
 
@@ -37,7 +37,7 @@ export function IDInput({placeholder, type, inputName, validate, isError, errorM
     setPlaceholderFocused(true);
     setInputFocused(true)
   },[]
-  ) 
+  )
 
   const handleInputBlur = useCallback(async () => {
     const inputValue = watch(inputName)
@@ -47,11 +47,11 @@ export function IDInput({placeholder, type, inputName, validate, isError, errorM
     await trigger(inputName)
     setInputFocused(false)
   },[inputName, trigger, watch]
-  ) 
+  )
 
   const showPassword = useCallback(() => {
     setIsVisible(prev => !prev)
-  },[]) 
+  },[])
 
   const styles = {
     input: {
@@ -118,7 +118,7 @@ export function IDInput({placeholder, type, inputName, validate, isError, errorM
               pipe={(value) => value.replace(/_/g, 'x')}
               {...inputParams( onChange, onBlur, value)}
             /> :
-            <input 
+            <input
               {...inputParams( onChange, onBlur, value)}
             />
             )}
@@ -132,52 +132,8 @@ export function IDInput({placeholder, type, inputName, validate, isError, errorM
     {!isInputFocused && isError ?
     <span style={{color:'#F42C4F'}} className='reg-auth__error-hint'> {HighlightValidate(errorMessage)} </span>
     :
-    <span className='reg-auth__error-hint'> {HighlightValidate(errorMessage)} </span> 
+    <span className='reg-auth__error-hint'> {HighlightValidate(errorMessage)} </span>
     }
     </>
   )
-  // return (
-  //   <>
-  //   <div className='id-input__container'>
-  //     <label htmlFor={inputName} className={`id-input__placeholder ${isPlaceholderFocused ? 'shifted' : ''}`}>
-  //       {placeholder}
-  //     </label>
-
-  //     {inputName === "phone" ? 
-  //       <MaskedInput
-  //       id={inputName}
-  //       className='reg-auth__input'
-  //       mask={BelarusPhoneNumberMask}
-  //       guide={isInputFocused}
-  //       pipe={(value) => value.replace(/_/g, 'x')} 
-  //       {...options(inputName, { required: "Поле не может быть пустым", validate: {validate} })}
-  //       type={!isVisible ? type : "text"}
-  //       onBlur={handleInputBlur}
-  //       onFocus={handleInputFocus}
-  //     />
-  //       :
-  //       <input 
-  //       id={inputName}
-  //       className='reg-auth__input' 
-  //       {...options(inputName, { required: "Поле не может быть пустым", validate: {validate} })}
-  //       type={!isVisible ? type : "text"}
-  //       onBlur={handleInputBlur}
-  //       onFocus={handleInputFocus}
-  //       style={styles.input}
-  //       />
-        
-  //     }
-
-  //       {inputName === "password" && <PasswordIcons isError={isError || !watch(inputName)} isVisible={isVisible} showPassword={showPassword}/>}
-  //       {inputName === "repeatPassword" && <PasswordIcons isError={true} isVisible={isVisible} showPassword={showPassword}/>}
-
-  //   </div>
-
-  //   {!isInputFocused && isError ?
-  //   <span style={{color:'#F42C4F'}} className='reg-auth__error-hint'> {HighlightValidate(errorMessage)} </span>
-  //   :
-  //   <span className='reg-auth__error-hint'> {HighlightValidate(errorMessage)} </span> 
-  //   }
-  //   </>
-  // )
 }

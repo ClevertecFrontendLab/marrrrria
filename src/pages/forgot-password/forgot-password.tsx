@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useForm, FormProvider } from 'react-hook-form';
-import { IDInput } from "../../components/identification/id-input";
+import { IDInput } from '../../components/identification/id-input';
 import { IDQuestion } from '../../components/identification/id-question';
 import { validateEmail, validateEqualPassword, validatePassword } from '../../components/identification/utils';
 import { useResetPasswordMutation, useSendEmailMutation } from '../../store/library/library.api';
@@ -47,7 +47,6 @@ export function ForgotPassword() {
       passwordConfirmation: data.repeatPassword,
       code,
     }
-    console.log(body)
     setPasswordsData(body)
     resetPassword(body)
   }
@@ -73,7 +72,7 @@ export function ForgotPassword() {
 
         <button className="button button__colored reg-auth__button" type="submit">Восстановить</button>
 
-        <IDQuestion path="/registration" question="Нет учётной записи?" text="Регистрация"/> 
+        <IDQuestion path="/registration" question="Нет учётной записи?" text="Регистрация"/>
 
       </form>
       </FormProvider> }
@@ -94,10 +93,10 @@ export function ForgotPassword() {
 
         <button className="button button__colored reg-auth__button" type="submit">Сохранить изменения</button>
 
-        <IDQuestion path="" question="После сохранения войдите в библиотеку, используя новый пароль" text=""/> 
+        <IDQuestion path="" question="После сохранения войдите в библиотеку, используя новый пароль" text=""/>
 
 
-      </form> 
+      </form>
       </FormProvider>}
 
       {dataPasswords && <ResponseWindow title='Новые данные сохранены' message="Зайдите в личный кабинет, используя свои логин и новый пароль" buttonText='вход' path='/auth'/>}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider } from 'react-hook-form';
 import { IDInput } from '../../components/identification/id-input';
 import { IDQuestion } from '../../components/identification/id-question';
 import { validateEmail, validateLogin, validateName, validatePassword, validatePhone } from '../../components/identification/utils';
@@ -61,7 +61,7 @@ export function Registration() {
       lastName: data.surname,
       phone: data.phone,
     }
-    
+
     setRegistrationData(body)
 
     registerUser(body)
@@ -74,7 +74,7 @@ export function Registration() {
       <span className='registration__steps'>{step} шаг из 3</span>
     </div>
 
-  
+
 
     {step === 1 && (
       <>
@@ -85,7 +85,7 @@ export function Registration() {
     )}
     {step === 2 && (
       <>
-        <IDInput placeholder='Имя' type="text" isError={!!errors.name} inputName="name" validate={validateName} errorMessage={errors.name?.message || ""} /> 
+        <IDInput placeholder='Имя' type="text" isError={!!errors.name} inputName="name" validate={validateName} errorMessage={errors.name?.message || ""} />
         <IDInput placeholder='Фамилия' type="text" isError={!!errors.surname} inputName="surname" validate={validateName} errorMessage={errors.surname?.message || ""}/>
         <button className="button button__colored reg-auth__button" type="button" onClick={() => onNextStep("name", "surname")}> Последний шаг </button>
       </>
@@ -93,7 +93,7 @@ export function Registration() {
     {step === 3 && (
       <>
         <IDInput placeholder='Номер телефона' type="tel" isError={!!errors.phone} inputName="phone" validate={validatePhone} errorMessage={errors.phone?.message || ""}/>
-        <IDInput placeholder='E-mail' type="text" isError={!!errors.email} inputName="email" validate={validateEmail} errorMessage={errors.email?.message || ""}/> 
+        <IDInput placeholder='E-mail' type="text" isError={!!errors.email} inputName="email" validate={validateEmail} errorMessage={errors.email?.message || ""}/>
         <button className="button button__colored reg-auth__button" type="submit"> Зарегистрироваться </button>
       </>
     )}
@@ -113,13 +113,13 @@ export function Registration() {
 
     {(error as any)?.status === 400 && <ResponseWindow title='Данные не сохранились' message='Такой логин или e-mail уже записан в системе. Попробуйте зарегистрироваться по другому логину или e-mail.' buttonText='назад к регистрации ' handler={backToRegistration}/>}
 
-    {!!error && (error as any)?.status !== 400 && <ResponseWindow title='Данные не сохранились' message='Что-то пошло не так и ваша регистрация не завершилась. Попробуйте ещё раз' buttonText='повторить' handler={() => registerUser(registrationData)}/>} 
+    {!!error && (error as any)?.status !== 400 && <ResponseWindow title='Данные не сохранились' message='Что-то пошло не так и ваша регистрация не завершилась. Попробуйте ещё раз' buttonText='повторить' handler={() => registerUser(registrationData)}/>}
 
     {data?.user && <ResponseWindow title='Регистрация успешна' message='Регистрация прошла успешно. Зайдите в личный кабинет, используя свои логин и пароль' buttonText='вход' path="/auth"/>}
 
     </div>
     </>
-  ); 
+  );
 
-  
+
 }
