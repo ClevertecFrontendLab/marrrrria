@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useForm, FormProvider } from 'react-hook-form';
 import { IDInput } from '../../components/identification/id-input';
 import { IDQuestion } from '../../components/identification/id-question';
@@ -61,7 +61,12 @@ export function ForgotPassword() {
 
       { (!code && !dataEmail?.ok) &&
       <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onEmailSubmit)} className="registration__form">
+      <form onSubmit={handleSubmit(onEmailSubmit)} className="registration__form forgot-password-form">
+
+        <Link to="/auth" className='form__sign-in-link'>
+          <span className="ico ico_sign-in-arrow-left"> </span>
+          <span> вход в личный кабинет </span>
+        </Link>
 
         <div className='registration__title-block'>
           <p className='registration__title'>Восстановление пароля</p>
