@@ -9,10 +9,10 @@ import { ResponseWindow } from '../../components/identification/response-window'
 import { Loader } from '../../components/loader';
 
 interface FormValues {
-  login: string;
+  username: string;
   password: string;
-  name: string;
-  surname: string;
+  firstName: string;
+  lastName: string;
   phone: string;
   email: string;
 }
@@ -25,17 +25,17 @@ export function Registration() {
   const methods = useForm<FormValues>({
     mode: 'onChange',
     defaultValues : {
-      login:'',
+      username:'',
       password:'',
-      name:'',
-      surname:'',
+      firstName:'',
+      lastName:'',
       phone:'',
       email:''
     }
   });
   const { handleSubmit, formState: { errors }, trigger, reset:resetForm } = methods
 
-  type InputEnum =  "login" | "password" | "name" | "surname" | "phone" | "email"
+  type InputEnum =  "username" | "password" | "firstName" | "lastName" | "phone" | "email"
 
   const onNextStep = async (name1:InputEnum, name2:InputEnum) => {
     const isCorrect = await trigger([name1,name2])
@@ -53,22 +53,12 @@ export function Registration() {
   }
 
   const onSubmit = (data: FormValues) => {
-    const body = {
-      email: data.email,
-      username: data.login,
-      password: data.password,
-      firstName: data.name,
-      lastName: data.surname,
-      phone: data.phone,
-    }
-
-    setRegistrationData(body)
-
-    registerUser(body)
+    setRegistrationData(data)
+    registerUser(data)
   };
 
   const registrationForm = <FormProvider {...methods}>
-  <form onSubmit={handleSubmit(onSubmit)} className="registration__form">
+  <form data-test-id="register-form" onSubmit={handleSubmit(onSubmit)} className="registration__form">
     <div className='registration__title-block'>
       <p className='registration__title'>Регистрация</p>
       <span className='registration__steps'>{step} шаг из 3</span>
@@ -78,16 +68,16 @@ export function Registration() {
 
     {step === 1 && (
       <>
-        <IDInput placeholder="Придумайте логин для входа" type="text" isError={!!errors.login} inputName="login" validate={validateLogin} errorMessage={errors.login?.message || "Используйте для логина латинский алфавит и цифры"}/>
+        <IDInput placeholder="Придумайте логин для входа" type="text" isError={!!errors.username} inputName="username" validate={validateLogin} errorMessage={errors.username?.message || "Используйте для логина латинский алфавит и цифры"}/>
         <IDInput placeholder='Пароль' type="password" isError={!!errors.password} inputName="password" validate={validatePassword} errorMessage={errors.password?.message || 'Пароль не менее 8 символов, с заглавной буквой и цифрой'}/>
-        <button className="button button__colored reg-auth__button" type="button" onClick={() => onNextStep("login", "password")}>Следующий шаг</button>
+        <button className="button button__colored reg-auth__button" type="button" onClick={() => onNextStep("username", "password")}>Следующий шаг</button>
       </>
     )}
     {step === 2 && (
       <>
-        <IDInput placeholder='Имя' type="text" isError={!!errors.name} inputName="name" validate={validateName} errorMessage={errors.name?.message || ""} />
-        <IDInput placeholder='Фамилия' type="text" isError={!!errors.surname} inputName="surname" validate={validateName} errorMessage={errors.surname?.message || ""}/>
-        <button className="button button__colored reg-auth__button" type="button" onClick={() => onNextStep("name", "surname")}> Последний шаг </button>
+        <IDInput placeholder='Имя' type="text" isError={!!errors.firstName} inputName="firstName" validate={validateName} errorMessage={errors.firstName?.message || ""} />
+        <IDInput placeholder='Фамилия' type="text" isError={!!errors.lastName} inputName="lastName" validate={validateName} errorMessage={errors.lastName?.message || ""}/>
+        <button className="button button__colored reg-auth__button" type="button" onClick={() => onNextStep("firstName", "lastName")}> Последний шаг </button>
       </>
     )}
     {step === 3 && (

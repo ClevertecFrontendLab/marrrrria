@@ -11,7 +11,7 @@ import { Loader } from '../../components/loader';
 interface FormValues {
   email: string;
   password: string,
-  repeatPassword: string,
+  passwordConfirmation: string,
 }
 
 export function ForgotPassword() {
@@ -24,7 +24,7 @@ export function ForgotPassword() {
     defaultValues: {
       email: '',
       password: '',
-      repeatPassword: '',
+      passwordConfirmation: '',
     }
   });
 
@@ -44,7 +44,7 @@ export function ForgotPassword() {
   function onPasswordSubmit(data: FormValues) {
     const body = {
       password: data.password,
-      passwordConfirmation: data.repeatPassword,
+      passwordConfirmation: data.passwordConfirmation,
       code,
     }
     setPasswordsData(body)
@@ -61,7 +61,7 @@ export function ForgotPassword() {
 
       { (!code && !dataEmail?.ok) &&
       <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onEmailSubmit)} className="registration__form forgot-password-form">
+      <form data-test-id="send-email-form" onSubmit={handleSubmit(onEmailSubmit)} className="registration__form forgot-password-form">
 
         <Link to="/auth" className='form__sign-in-link'>
           <span className="ico ico_sign-in-arrow-left"> </span>
@@ -87,14 +87,14 @@ export function ForgotPassword() {
 
     {code && !errorPasswords && !dataPasswords &&
     <FormProvider {...methods}>
-    <form onSubmit={handleSubmit(onPasswordSubmit)} className="registration__form">
+    <form data-test-id="reset-password-form" onSubmit={handleSubmit(onPasswordSubmit)} className="registration__form">
 
       <div className='registration__title-block'>
         <p className='registration__title'>Восстановление пароля </p>
       </div>
 
         <IDInput placeholder="Новый пароль" type="password" isError={!!errors.password} inputName="password" validate={(value) => validatePassword(value)} errorMessage={errors.password?.message as string || 'Пароль не менее 8 символов, с заглавной буквой и цифрой'}/>
-        <IDInput placeholder="Повторите пароль" type="password" isError={!!errors.repeatPassword} inputName="repeatPassword" validate={(value) => validateEqualPassword(value, watch("password"))} errorMessage={errors.repeatPassword?.message as string || ''}/>
+        <IDInput placeholder="Повторите пароль" type="password" isError={!!errors.passwordConfirmation} inputName="passwordConfirmation" validate={(value) => validateEqualPassword(value, watch("password"))} errorMessage={errors.passwordConfirmation?.message as string || ''}/>
 
         <button className="button button__colored reg-auth__button" type="submit">Сохранить изменения</button>
 

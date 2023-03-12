@@ -18,7 +18,7 @@ interface FormValues {
 interface IDInputProps {
   placeholder: string,
   type: string,
-  inputName: InputEnum,
+  inputName: string,
   validate: (value:string) => string | boolean,
   isError: boolean,
   errorMessage: string,
@@ -130,9 +130,9 @@ export function IDInput({placeholder, type, inputName, validate, isError, errorM
     </div>
 
     {!isInputFocused && isError ?
-    <span style={{color:'#F42C4F'}} className='reg-auth__error-hint'> {HighlightValidate(errorMessage)} </span>
+    <span data-test-id="hint" style={{color:'#F42C4F'}} className='reg-auth__error-hint'> {HighlightValidate(errorMessage)} </span>
     :
-    <span className='reg-auth__error-hint'> {HighlightValidate(errorMessage)} </span>
+    <span data-test-id="hint" className='reg-auth__error-hint'> {HighlightValidate(errorMessage)} </span>
     }
     </>
   )

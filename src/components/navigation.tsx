@@ -106,7 +106,7 @@ export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationPro
 
       <ul className='navigation__profile-items'>
         <li className='navigation__item'>Профиль</li>
-        <li role="presentation" onClick={() => logOut()} className='navigation__item'>Выход</li> 
+        <li data-test-id="exit-button" role="presentation" onClick={() => logOut()} className='navigation__item'>Выход</li>
       </ul>
     </nav>
     </React.Fragment>
