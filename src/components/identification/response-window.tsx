@@ -17,7 +17,7 @@ export function ResponseWindow({title, message, buttonText="", path="", handler}
 
   return (
       <div data-test-id="status-block" className="response__container">
-        <p className='response__title'>{title}</p>
+        <span  className='response__title'>{title}</span>
         <span className='response__message'>{message}</span>
         {button}
       </div>

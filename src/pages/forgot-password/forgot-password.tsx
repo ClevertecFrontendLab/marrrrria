@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useForm, FormProvider } from 'react-hook-form';
 import { IDInput } from '../../components/identification/id-input';
@@ -29,16 +29,25 @@ export function ForgotPassword() {
   });
 
   const [passwordsData, setPasswordsData] = useState({})
-  const { handleSubmit, formState: { errors }, watch } = methods
-  const [ sendEmail, { isLoading:isLoadingEmail, error: errorEmail, data: dataEmail } ] = useSendEmailMutation()
-  const [ resetPassword, { isLoading:isLoadingPasswords, error: errorPasswords, data: dataPasswords } ] = useResetPasswordMutation()
+  const [isPasswordConfirmationFocused, setIsPasswordConfirmationFocused] = useState(false)
 
+  const setIsPasswordConfirmationFocusedCallBack = useCallback((value:boolean)=>setIsPasswordConfirmationFocused(value),[])
+
+  const { handleSubmit, formState, watch } = methods
+  const { errors, isValid } = formState
+
+  const [ sendEmail, { isLoading:isLoadingEmail, error: errorEmail, data: dataEmail, isError:isEmailError, isSuccess:isSuccessEmail } ] = useSendEmailMutation()
+  const [ resetPassword, { isSuccess:isSuccessPassword, isLoading:isLoadingPasswords, error: errorPasswords, data: dataPasswords } ] = useResetPasswordMutation()
 
   function onEmailSubmit(data: FormValues) {
     const body = {
       email: data.email,
     }
     sendEmail(body)
+  }
+
+  function dataEmailTrue(data: any) {
+    return data === null || (data && data.ok === true)
   }
 
   function onPasswordSubmit(data: FormValues) {
@@ -51,15 +60,17 @@ export function ForgotPassword() {
     resetPassword(body)
   }
 
+//   console.log(isValid, errors, errors?.password?.message)
+//   console.log(formState)
+
   return(
     <>
-
     {(isLoadingEmail || isLoadingPasswords) && <Loader/>}
 
-    <div className="reg-auth__background">
+    <div data-test-id="auth" className="reg-auth__background">
       <h2 className='reg-auth__title'>Cleverland</h2>
 
-      { (!code && !dataEmail?.ok) &&
+      {(!code && (!isSuccessEmail || isEmailError)) &&
       <FormProvider {...methods}>
       <form data-test-id="send-email-form" onSubmit={handleSubmit(onEmailSubmit)} className="registration__form forgot-password-form">
 
@@ -72,8 +83,9 @@ export function ForgotPassword() {
           <p className='registration__title'>Восстановление пароля</p>
         </div>
 
-        <IDInput placeholder="Email " type="email"  isError={!!errors?.email} inputName="email" validate={validateEmail} errorMessage={ errors?.email?.message || ''}/>
-        <span className='reg-auth__error-hint'>На это email  будет отправлено письмо с инструкциями по восстановлению пароля</span>
+        <IDInput placeholder="Email " type="email"  isError={!!errors?.email || isEmailError} inputName="email" validate={validateEmail} errorMessage={isEmailError ? 'error' : errors?.email?.message || ''}/>
+
+        <span data-test-id="hint" className='reg-auth__error-hint'>На это email  будет отправлено письмо с инструкциями по восстановлению пароля</span>
 
         <button className="button button__colored reg-auth__button" type="submit">Восстановить</button>
 
@@ -82,10 +94,10 @@ export function ForgotPassword() {
       </form>
       </FormProvider> }
 
-      {dataEmail?.ok && <ResponseWindow title='Письмо выслано' message="Перейдите в вашу почту, чтобы воспользоваться подсказками по восстановлению пароля" />}
+      {isSuccessEmail && !isEmailError && <ResponseWindow title="Письмо выслано" message="Перейдите в вашу почту, чтобы воспользоваться подсказками по восстановлению пароля" />}
 
 
-    {code && !errorPasswords && !dataPasswords &&
+    {code && !errorPasswords && !isSuccessPassword &&
     <FormProvider {...methods}>
     <form data-test-id="reset-password-form" onSubmit={handleSubmit(onPasswordSubmit)} className="registration__form">
 
@@ -94,9 +106,9 @@ export function ForgotPassword() {
       </div>
 
         <IDInput placeholder="Новый пароль" type="password" isError={!!errors.password} inputName="password" validate={(value) => validatePassword(value)} errorMessage={errors.password?.message as string || 'Пароль не менее 8 символов, с заглавной буквой и цифрой'}/>
-        <IDInput placeholder="Повторите пароль" type="password" isError={!!errors.passwordConfirmation} inputName="passwordConfirmation" validate={(value) => validateEqualPassword(value, watch("password"))} errorMessage={errors.passwordConfirmation?.message as string || ''}/>
+        <IDInput placeholder="Повторите пароль" type="password" isError={!!errors.passwordConfirmation} inputName="passwordConfirmation" validate={(value) => validateEqualPassword(value, watch("password"))} errorMessage={errors.passwordConfirmation?.message as string || ''} focusFunction={setIsPasswordConfirmationFocusedCallBack}/>
 
-        <button className="button button__colored reg-auth__button" type="submit">Сохранить изменения</button>
+        <button disabled={!isValid && !isPasswordConfirmationFocused} className="button button__colored reg-auth__button" type="submit">Сохранить изменения</button>
 
         <IDQuestion path="" question="После сохранения войдите в библиотеку, используя новый пароль" text=""/>
 
@@ -104,7 +116,7 @@ export function ForgotPassword() {
       </form>
       </FormProvider>}
 
-      {dataPasswords && <ResponseWindow title='Новые данные сохранены' message="Зайдите в личный кабинет, используя свои логин и новый пароль" buttonText='вход' path='/auth'/>}
+      {isSuccessPassword && <ResponseWindow title='Новые данные сохранены' message="Зайдите в личный кабинет, используя свои логин и новый пароль" buttonText='вход' path='/auth'/>}
       {errorPasswords && <ResponseWindow title='Данные не сохранились' message="Что-то пошло не так. Попробуйте ещё раз" buttonText='повторить' handler={() => resetPassword(passwordsData)} />}
 
     </div>

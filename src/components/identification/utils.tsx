@@ -1,10 +1,15 @@
 
 
-function HighlightValidate (text:string) {
-  return text.split('/').map((item, index) =>
-    index%2 ? <span key={item} style={{color:'red'}}> {item} </span> : item
+function HighlightValidate (text:string, isFocused:boolean) {
+    const resultText = text.split('/')
+  if (!isFocused) {
+    return <span>{resultText.join('')}</span>
+  }
+  return resultText.map((item, index) =>
+    index%2 ? <span key={item} style={{color:'#F42C4F'}}> {item} </span> : <span key={item}>{item}</span>
   )
 }
+
 
 const validatePassword = (value: string) => {
   let isNumbers = !/\d+/.test(value)
@@ -24,12 +29,12 @@ const validatePassword = (value: string) => {
 };
 
 const validateLogin = (value: string) => {
-  let isNumbers = !/\d+/.test(value)
-  let isLatinLetters = !/[A-Za-z]+/.test(value)
-  if (!/^[A-Za-z0-9]+$/.test(value)) {
-    isNumbers = true
-    isLatinLetters = true
-  }
+  const isNumbers = !/\d+/.test(value)
+  const isLatinLetters = !/[A-Za-z]+/.test(value)
+//   if (!/^[A-Za-z0-9]+$/.test(value)) {
+//     isNumbers = true
+//     isLatinLetters = true
+//   }
 
   const JSXError = `Используйте для логина ${isLatinLetters ? "/латинский алфавит/" : "латинский алфавит"} и ${isNumbers ? "/цифры/" : "цифры"}`
 

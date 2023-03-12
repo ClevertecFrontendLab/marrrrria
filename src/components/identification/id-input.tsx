@@ -4,7 +4,7 @@ import MaskedInput from 'react-text-mask'
 import { HighlightValidate } from './utils';
 import { PasswordIcons } from './password-icons';
 
-type InputEnum =  "login" | "password" | "name" | "surname" | "phone" | "email" | "repeatPassword"
+type InputEnum =  "username" | "password" | "firstName" | "lastName" | "phone" | "email" | "passwordConfirmation"
 
 interface FormValues {
   login: string;
@@ -22,11 +22,14 @@ interface IDInputProps {
   validate: (value:string) => string | boolean,
   isError: boolean,
   errorMessage: string,
+  withoutCheckmark?: boolean,
+  hint?: string,
+  focusFunction?: (value:boolean) => void
 }
 
-export function IDInput({placeholder, type, inputName, validate, isError, errorMessage}: IDInputProps) {
+export function IDInput({placeholder, type, inputName, validate, isError, errorMessage, withoutCheckmark = false, hint='', focusFunction = undefined}: IDInputProps) {
 
-  const { register:options, watch, trigger, control } = useFormContext();
+  const { watch, trigger, control, formState:{errors} } = useFormContext();
 
   const [isPlaceholderFocused, setPlaceholderFocused] = useState(false);
   const [isInputFocused, setInputFocused] = useState(false)
@@ -36,7 +39,10 @@ export function IDInput({placeholder, type, inputName, validate, isError, errorM
   const handleInputFocus = useCallback(() =>{
     setPlaceholderFocused(true);
     setInputFocused(true)
-  },[]
+    if (focusFunction && typeof focusFunction === 'function'){
+        focusFunction(true)
+    }
+  },[focusFunction]
   )
 
   const handleInputBlur = useCallback(async () => {
@@ -46,7 +52,10 @@ export function IDInput({placeholder, type, inputName, validate, isError, errorM
     }
     await trigger(inputName)
     setInputFocused(false)
-  },[inputName, trigger, watch]
+    if (focusFunction && typeof focusFunction === 'function'){
+        focusFunction(false)
+    }
+  },[inputName, trigger, watch, focusFunction]
   )
 
   const showPassword = useCallback(() => {
@@ -83,7 +92,9 @@ export function IDInput({placeholder, type, inputName, validate, isError, errorM
   ];
 
   const inputParams = ( onChange:any, onBlur:any, value:any ) => ({
+      name:inputName,
       id:inputName,
+    //   autoComplete:'new-password',
       className:'reg-auth__input',
       type:!isVisible ? type : "text",
       onBlur: () => {
@@ -99,6 +110,7 @@ export function IDInput({placeholder, type, inputName, validate, isError, errorM
       style:styles.input,
     })
 
+
   return (
     <>
     <div className='id-input__container'>
@@ -109,7 +121,7 @@ export function IDInput({placeholder, type, inputName, validate, isError, errorM
       <Controller
         name={inputName}
         control={control}
-        rules={{ required: "Поле не может быть пустым", validate: { validate } }}
+        rules={{ required:true, validate: { validate } }}
         render={({ field: { onChange, onBlur, value } }) => (
           inputName === "phone" ?
             <MaskedInput
@@ -124,15 +136,18 @@ export function IDInput({placeholder, type, inputName, validate, isError, errorM
             )}
       />
 
-        {inputName === "password" && <PasswordIcons isError={isError || !watch(inputName)} isVisible={isVisible} showPassword={showPassword}/>}
-        {inputName === "repeatPassword" && <PasswordIcons isError={true} isVisible={isVisible} showPassword={showPassword}/>}
+        {(inputName === "password" && watch("password")) && <PasswordIcons isError={isError || !watch(inputName)} isVisible={isVisible} showPassword={showPassword} withoutCheckmark={withoutCheckmark}/>}
+        {(inputName === "passwordConfirmation" && watch("passwordConfirmation"))&& <PasswordIcons isError={true} isVisible={isVisible} showPassword={showPassword}/>}
 
     </div>
 
-    {!isInputFocused && isError ?
-    <span data-test-id="hint" style={{color:'#F42C4F'}} className='reg-auth__error-hint'> {HighlightValidate(errorMessage)} </span>
+    {
+    isInputFocused && inputName === "passwordConfirmation" ? <span data-test-id="hint" className='reg-auth__error-hint'> </span>:
+    !isInputFocused && !watch(inputName) && isError ? <span data-test-id="hint" style={{color:'#F42C4F'}} className='reg-auth__error-hint'> Поле не может быть пустым </span> :
+    !isInputFocused && isError ?
+    <span data-test-id="hint" style={{color:'#F42C4F'}} className='reg-auth__error-hint'> {HighlightValidate(errorMessage, isInputFocused)} </span>
     :
-    <span data-test-id="hint" className='reg-auth__error-hint'> {HighlightValidate(errorMessage)} </span>
+    <span data-test-id="hint" className='reg-auth__error-hint'> {HighlightValidate(errorMessage, isInputFocused)} </span>
     }
     </>
   )

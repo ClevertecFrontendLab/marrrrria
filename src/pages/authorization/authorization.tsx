@@ -61,9 +61,9 @@ export function Authorization() {
 
         <IDInput placeholder="Логин " type="text" isError={!!errors.identifier || (error as any)?.status === 400} inputName="identifier" validate={() => true} errorMessage={errors.identifier?.message || ''}/>
 
-        <IDInput placeholder='Пароль' type="password" isError={!!errors.password || (error as any)?.status === 400} inputName="password" validate={() => true} errorMessage={errors.password?.message || ''}/>
+        <IDInput placeholder='Пароль' type="password" isError={!!errors.password || (error as any)?.status === 400} inputName="password" validate={() => true} errorMessage={errors.password?.message || ''} withoutCheckmark={true}/>
 
-        {(error as any)?.status === 400 && <p className='authorization__error'><span>Неверный логин или пароль!</span> <br/> <span>Восстановить?</span></p>}
+        {(error as any)?.status === 400 && <p className='authorization__error'><span data-test-id="hint" >Неверный логин или пароль!</span> <br/> <span>Восстановить?</span></p>}
         {!error && <Link to="/forgot-pass" ><p className='authorization__forgot-question'>Забыли логин или пароль? </p></Link>}
 
         <button className="button button__colored reg-auth__button" type="submit">Вход</button>
