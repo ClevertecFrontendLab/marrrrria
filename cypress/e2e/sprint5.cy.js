@@ -63,7 +63,7 @@ describe('authorization and registartion', () => {
             cy.get('[data-test-id=auth-form] input[name=identifier]').type('TestUser1');
             cy.get('[data-test-id=auth-form] input[name=password]').type('Qwerty123');
             cy.get('button').contains('вход', { matchCase: false }).should('be.enabled').click();
-            cy.wait('@authorize');  
+            cy.wait('@authorize');
             cy.visit('http://localhost:3000/#/auth');
             cy.url().should('contain', '/books/all');
             cy.visit('http://localhost:3000/#/registration');

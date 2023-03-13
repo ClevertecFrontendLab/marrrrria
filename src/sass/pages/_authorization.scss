@@ -1,0 +1,13 @@
+.authorization {
+
+  &__error {
+    @include font($size: 1.2rem, $height: 1.6rem, $weight: 500);
+
+    >:first-child {
+      color: #F42C4F;
+    }
+    >:last-child {
+      color: $color-text;
+    } 
+  }
+}

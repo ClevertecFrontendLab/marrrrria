@@ -22,7 +22,7 @@ interface NavigationProps {
 export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationProps) {
 
   const {isLoading, isError, data} = useGetCategoriesQuery()
-  const { addCategories } = useActions()
+  const { addCategories, logOut } = useActions()
 	const { allBooks } = useAppSelector(state => state.library)
   const categoryCount = calculateBooks(allBooks)
 
@@ -106,7 +106,7 @@ export function Navigation({isOpen, closeNavigation, dataTestIds}: NavigationPro
 
       <ul className='navigation__profile-items'>
         <li className='navigation__item'>Профиль</li>
-        <li className='navigation__item'>Выход</li>
+        <li data-test-id="exit-button" role="presentation" onClick={() => logOut()} className='navigation__item'>Выход</li>
       </ul>
     </nav>
     </React.Fragment>

@@ -11,23 +11,17 @@ import { store } from './store';
 
 import './sass/style.scss'
 import './index.css';
+import { Registration } from './pages/registration/registration';
+import { Authorization } from './pages/authorization/authorization';
+import { ForgotPassword } from './pages/forgot-password/forgot-password';
+import { App } from './app';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
 root.render(
   // eslint-disable-next-line react/jsx-filename-extension
   <Provider store={store}>
   <React.StrictMode>
-    <HashRouter>
-      <Routes>
-        <Route path='/' element={<Navigate to='/books/all'/>} />
-        <Route path='/books' element={<Navigate to='/books/all'/>} />
-        <Route path='/books/:category' element={<MainPage />} />
-        <Route path='/rules' element={<RulesPage />} />
-        <Route path='/contract' element={<ContractPage />} />
-        <Route path='/books/:category/:bookId' element={<BookPage />} />
-      </Routes>
-    </HashRouter>
+    <App/>
   </React.StrictMode>
   </Provider>
 );
