@@ -1,5 +1,5 @@
 .header {
-  
+
   padding-top: 32px;
   padding-bottom: 24px;
 
@@ -80,4 +80,8 @@
   >:last-child {
     cursor: pointer;
   }
+}
+
+.shadow {
+  box-shadow: 4px 4px 4px rgba(54, 54, 54, 0.05), -4px 4px 4px rgba(54, 54, 54, 0.05);
 }

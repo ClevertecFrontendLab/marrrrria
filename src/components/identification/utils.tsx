@@ -31,10 +31,6 @@ const validatePassword = (value: string) => {
 const validateLogin = (value: string) => {
   const isNumbers = !/\d+/.test(value)
   const isLatinLetters = !/[A-Za-z]+/.test(value)
-//   if (!/^[A-Za-z0-9]+$/.test(value)) {
-//     isNumbers = true
-//     isLatinLetters = true
-//   }
 
   const JSXError = `Используйте для логина ${isLatinLetters ? "/латинский алфавит/" : "латинский алфавит"} и ${isNumbers ? "/цифры/" : "цифры"}`
 

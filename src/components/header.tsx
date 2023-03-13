@@ -16,9 +16,7 @@ export function Header({toggleNavigation, isOpenNavigation, closeNavigation}: He
 
   const [isOpenProfileSettings, setIsOpenProfileSettings] = useState(false)
 
-  const shadow = isOpenProfileSettings ? {
-    boxShadow: '4px 4px 4px rgba(54, 54, 54, 0.05), -4px 4px 4px rgba(54, 54, 54, 0.05)',
-  } : {}
+  const className = isOpenProfileSettings ? 'shadow' : ''
 
   const  dataTestIds = {
     idWindowBooks: 'burger-showcase',
@@ -29,7 +27,7 @@ export function Header({toggleNavigation, isOpenNavigation, closeNavigation}: He
   }
 
   return (
-    <header style={shadow} className='header'>
+    <header className={`header ${className}`}>
         <div className='wrapper header__wrapper'>
             <Link to="/" className='header__logo logo'>
               <span className='icon-square icon-square_lilium'>
@@ -45,14 +43,14 @@ export function Header({toggleNavigation, isOpenNavigation, closeNavigation}: He
             <div role="presentation" className='header__person person' onClick={() => setIsOpenProfileSettings(prev => !prev)}>
                 <span className='person__name'>Привет Иван!</span>
                 <div className='person__picture'> </div>
-                
+
                 {isOpenProfileSettings && <div className='person__functions'>
                   <p><Link to="/">Профиль</Link></p>
                   <p role="presentation" onClick={() => logOut()}>Выход</p>
                 </div>}
             </div>
 
-            
+
 
         </div>
         <div data-test-id='burger-navigation' className='header__burger-navigation'>
